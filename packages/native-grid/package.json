@@ -1,0 +1,30 @@
+{
+    "name": "@ptsecurity/native-grid",
+    "version": "0.0.0",
+    "description": "Data Grid",
+    "scripts": {
+        "test": "exit 0",
+        "lint": "tslint -p tsconfig.json src/ts/**/*.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/positive-js/mosaic-grid.git"
+    },
+    "keywords": [
+        "grid",
+        "data",
+        "table"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/positive-js/mosaic-grid/issues"
+    },
+    "devDependencies": {
+        "gulp": "^4.0.0",
+        "gulp-clean": "^0.4.0",
+        "gulp-sass": "^4.0.1",
+        "node-sass": "^4.9.3",
+        "tslint": "^5.11.0",
+        "typescript": "^3.1.1"
+    }
+}

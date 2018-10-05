@@ -1,3 +1,8 @@
+# IDEs
+/.idea
+/.vscode
+/.awcache
+
 # Logs
 logs
 *.log
