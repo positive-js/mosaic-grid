@@ -3,3 +3,5 @@ main.js
 
 dist
 .cache-loader
+
+main.ngsummary.json

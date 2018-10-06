@@ -1,0 +1,7 @@
+module.tgz
+src/*.ngsummary.json
+src/*.ngfactory.ts
+src/**/*.d.ts
+src/**/*.js
+src/**/*.js.map
+src/**/*.metadata.json

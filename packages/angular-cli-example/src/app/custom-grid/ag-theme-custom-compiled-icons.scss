@@ -1,0 +1,23 @@
+// icons
+.ag-icon {
+  @extend .mc;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+}
+
+.ag-icon-asc {
+  background-image: none !important;
+  @extend .mc-angle-S_16;
+  transform: rotate(180deg);
+}
+
+.ag-icon-desc {
+  background-image: none !important;
+  @extend .mc-angle-S_16;
+}
+
+.ag-icon-menu {
+  background-image: none !important;
+  @extend .mc-gear_16;
+}

@@ -1,0 +1,24 @@
+<section class="layout-column">
+  <div class="flex-none layout-row">
+    <div class="flex">
+      <button mc-button (click)="scrollTo(30)">scroll to: 30</button>&nbsp;
+      <button mc-button (click)="clearSelection()">clear selection</button>&nbsp;
+    </div>
+    <div class="flex-none">
+      <mc-form-field>
+        <input mcInput placeholder="поиск" [formControl]="searchText">
+        <mc-cleaner></mc-cleaner>
+      </mc-form-field>
+    </div>
+  </div>
+
+  <ag-grid-angular
+    #agGrid
+    class="ag-theme flex-70"
+    [gridOptions]="gridOptions"></ag-grid-angular>
+
+  <textarea class="flex-20" #log></textarea>
+  <div class="flex-none">
+    <button mc-button (click)="clearLog()">clear</button>
+  </div>
+</section>

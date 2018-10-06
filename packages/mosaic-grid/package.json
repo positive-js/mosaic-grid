@@ -2,7 +2,13 @@
     "name": "@ptsecurity/mosaic-grid",
     "version": "0.0.0",
     "description": "Angular Grid",
-    "scripts": {},
+    "main": "main.js",
+    "typings": "main.d.ts",
+    "scripts": {
+        "clean-src": "rimraf src/*.d.ts src/*.js*",
+        "build-no-verify": "ngc -p tsconfig-src.json && npm run clean-src && gulp clean-build-main",
+        "build:release": "gulp release"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/positive-js/mosaic-grid.git"
@@ -22,7 +28,18 @@
         "@angular/compiler": "^7.0.0-rc.0",
         "@angular/compiler-cli": "^7.0.0-rc.0",
         "@angular/core": "^7.0.0-rc.0",
+        "@ptsecurity/native-grid": "^0.1.0",
         "core-js": "^2.5.7",
+        "del": "^3.0.0",
+        "gulp": "^3.9.1",
+        "gulp-header": "^2.0.5",
+        "gulp-ngc": "^0.3.3",
+        "gulp-rename": "^1.4.0",
+        "gulp-typescript": "^5.0.0-alpha.3",
+        "merge2": "^1.2.2",
+        "replace-in-file": "^3.4.2",
+        "rimraf": "^2.6.2",
+        "run-sequence": "^2.2.1",
         "rxjs": "^6.3.3",
         "typescript": "^3.1.1",
         "zone.js": "^0.8.26"

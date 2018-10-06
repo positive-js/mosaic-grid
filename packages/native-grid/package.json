@@ -1,6 +1,6 @@
 {
     "name": "@ptsecurity/native-grid",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "Data Grid",
     "main": "./main.js",
     "scripts": {

@@ -1,0 +1,183 @@
+@import "~@ptsecurity/native-grid/styles/ag-theme-classic-common";
+@import "~@ptsecurity/native-grid/styles/ag-theme-classic-vars";
+
+// Аналоги мозаичных переменных
+$BLACK: #000000;
+$WHITE: #FFFFFF;
+$TRANSPARENT: rgba(0, 0, 0, 0);
+
+$GRAY-BASE: hsl(0, 0.00001, 0.00001);
+$GRAY-60: lighten(saturate($GRAY-BASE, 0%), 94%);
+$GRAY-100: lighten(saturate($GRAY-BASE, 0%), 90%);
+$GRAY-200: lighten(saturate($GRAY-BASE, 0%), 80%);
+$GRAY-400: lighten(saturate($GRAY-BASE, 0%), 60%);
+$GRAY-600: lighten(saturate($GRAY-BASE, 0%), 40%);
+$GRAY-700: lighten(saturate($GRAY-BASE, 0%), 30%);
+
+$BLUE-BASE: hsl(204, 0.00001, 0.00001);
+$BLUE-100: lighten(saturate($BLUE-BASE, 66%), 91%);
+$BLUE-400: lighten(saturate($BLUE-BASE, 62%), 59%);
+
+$A-BLACK-60: rgba($BLACK, 0.06);
+
+// Sizing
+$grid-size: 4px;
+$icon-size: 16px; // todo: подключить mc-icons
+$header-height: $grid-size * 8;
+$row-height: $grid-size * 9;
+$cell-horizontal-padding: $grid-size * 3;
+$virtual-item-height: $grid-size * 9;
+$header-icon-size: 14px;
+$cell-horizontal-border: 0;
+
+// todo: почему-то без этих переменных возникает ошибка компиляции
+$toolpanel-indent-size: $grid-size + $icon-size;
+$row-group-indent-size: $grid-size * 3 + $icon-size;
+
+// Fonts
+$font-family: "Roboto", sans-serif;
+$font-size: 15px;
+$font-weight: 400;
+$secondary-font-family: "Roboto", sans-serif;
+$secondary-font-size: 13px;
+$secondary-font-weight: 400;
+
+// Colors
+$background-color: $WHITE;
+$selected-color: $BLUE-100;
+$odd-row-background-color: $background-color;
+$icon-color: $GRAY-60;
+$border-color: transparent;
+
+$card-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+$params: (
+  grid-size: $grid-size,
+  icon-size: $icon-size,
+  header-icon-size: $header-icon-size,
+  row-height: $row-height,
+  header-height: $header-height,
+  virtual-item-height: $virtual-item-height,
+  cell-horizontal-padding: $cell-horizontal-padding,
+  toolpanel-indent-size: $toolpanel-indent-size,
+  row-group-indent-size: $row-group-indent-size,
+  icons-path: $icons-path,
+  font-family: $font-family,
+  font-size: $font-size,
+  font-weight: $font-weight,
+  secondary-font-family: $secondary-font-family,
+  secondary-font-size: $secondary-font-size,
+  secondary-font-weight: $secondary-font-weight,
+  background-color: $background-color,
+  odd-row-background-color: $odd-row-background-color,
+  icon-color: $icon-color,
+  border-color: $border-color,
+  selected-color: $selected-color,
+  icon-opacity: $foreground-opacity,
+  cell-horizontal-border: $cell-horizontal-border,
+  // для меню столбца
+  card-background-color: $background-color,
+  card-shadow: $card-shadow,
+  tab-background-color: $GRAY-60,
+  hover-color: $A-BLACK-60,
+  menu-option-active-color: $selected-color,
+);
+
+.mc-theme-light {
+  .ag-theme {
+    %tab {
+      border: 1px solid transparent;
+      border-bottom-width: 0;
+      display: inline-block;
+      margin: $grid-size $grid-size 0;
+      padding: $grid-size $grid-size * 2;
+    }
+
+    %selected-tab {
+      background-color: $A-BLACK-60;
+      border-bottom: 2px solid $A-BLACK-60 !important;
+      border-color: $border-color;
+    }
+
+    @include ag-grid-theme($params);
+    @import 'ag-theme-custom-compiled-icons';
+
+    .ag-header-container {
+      color: $GRAY-400;
+      font-size: $secondary-font-size;
+    }
+    .ag-header {
+      border-bottom: 1px solid $GRAY-100;
+    }
+    .ag-header-cell {
+      border-right: 0;
+
+      transition-property: background-color;
+      transition-duration: .33s;
+      transition-timing-function: ease-out;
+
+      &:hover {
+        background-color: $A-BLACK-60;
+
+        .ag-header-cell-resize {
+          display: block;
+        }
+      }
+    }
+    .ag-header-cell-resize {
+      width: $grid-size + 1;
+      display: none;
+
+      &::after {
+        content: '';
+        display: block;
+        width: 1px;
+        height: $header-height / 2;
+        margin-left: 2px;
+        margin-top: $header-height / 4;
+        background-color: $GRAY-200;
+      }
+    }
+
+    .ag-header-cell-menu-button .ag-icon-menu {
+        display: flex; // для корректного выравнивания иконки
+    }
+
+    .ag-cell {
+      border: 0;
+      outline: none;
+    }
+
+    .ag-row {
+      color: $GRAY-700;
+      border: 1px solid transparent;
+
+      &:not(.ag-row-selected):hover {
+        background-color: $A-BLACK-60;
+      }
+
+      &.ag-row-focus {
+        border: 1px solid $BLUE-400;
+      }
+    }
+
+    .ag-ltr .ag-cell-focus,
+    .ag-rtl .ag-cell-focus {
+      border: 0;
+      outline: none;
+    }
+
+    // context menu spacing
+    .ag-menu-option {
+      height: $grid-size * 7;
+      line-height: $grid-size * 7;
+    }
+    .ag-column-select-panel {
+      .ag-column-tool-panel-column-group,
+      .ag-column-tool-panel-column {
+        height: $grid-size * 5;
+        line-height: $grid-size * 5;
+      }
+    }
+  }
+}

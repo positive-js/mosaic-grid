@@ -26,7 +26,10 @@ const headerTemplate = ['/**',
 
 const dtsHeaderTemplate = '';
 
-gulp.task('webpack-all', ['webpack', 'webpack-minify', 'webpack-noStyle', 'webpack-minify-noStyle', 'tsc-main'], tscSrcTask);
+gulp.task('default', ['webpack-run-all']);
+gulp.task('release', ['webpack-run-all']);
+
+gulp.task('webpack-run-all', ['webpack', 'webpack-minify', 'webpack-noStyle', 'webpack-minify-noStyle', 'tsc-main'], tscSrcTask);
 
 gulp.task('webpack', ['tsc', 'scss'], webpackTask.bind(null, false, true));
 gulp.task('webpack-minify', ['tsc', 'scss'], webpackTask.bind(null, true, true));

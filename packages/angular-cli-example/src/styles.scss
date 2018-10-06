@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ptsecurity/mosaic/prebuilt-visual/default-visual.css";
+@import "~@ptsecurity/mosaic/prebuilt-themes/default-theme.css";
+//@import "~@ptsecurity/mosaic/_theming";
+
+$mc-icons-font-path: "~@ptsecurity/mosaic-icons/dist/fonts/";
+@import "~@ptsecurity/mosaic-icons/dist/styles/_mc-icons";
+
+$ag-icons-path: "~@ptsecurity/native-grid/styles/icons/";
+@import '~@ptsecurity/native-grid/styles/ag-grid.scss';
+@import 'app/custom-grid/ag-theme-custom.scss';
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+mc-navbar {
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  padding: 4px;
+  display: flex;
+  flex: 1 1 auto;
+}
+
+section {
+  width: 100%;
+}
