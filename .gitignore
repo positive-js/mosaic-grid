@@ -1,3 +1,6 @@
+dist
+.cache-loader
+
 # IDEs
 /.idea
 /.vscode
