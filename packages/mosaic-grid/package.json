@@ -1,6 +1,6 @@
 {
     "name": "@ptsecurity/mosaic-grid",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "Angular Grid",
     "main": "main.js",
     "typings": "main.d.ts",
