@@ -1,9 +1,9 @@
 const gulp = require('gulp');
+const path = require('path');
 const clean = require('gulp-clean');
 const autoprefixer = require('autoprefixer');
 const gulpTypescript = require('gulp-typescript');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const typescript = require('typescript');
 const merge = require('merge2');
 const header = require('gulp-header');
@@ -15,6 +15,8 @@ const rename = require('gulp-rename');
 
 
 const pkg = require('./package.json');
+
+const bundleTemplate = '// <%= pkg.name %> v<%= pkg.version %>\n';
 
 const headerTemplate = ['/**',
     ' * <%= pkg.name %> - <%= pkg.description %>',
@@ -49,36 +51,39 @@ gulp.task('cleanMain', cleanMain);
 
 function webpackTask(minify, styles) {
 
-    const plugins = [];
-    if (minify) {
-        plugins.push(new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}));
-    }
     const mainFile = styles ? './main-with-styles.js' : './main.js';
 
-    let fileName = 'native-grid';
+    let fileName = 'mc-grid';
     fileName += minify ? '.min' : '';
     fileName += styles ? '' : '.noStyle';
     fileName += '.js';
 
     return gulp.src('src/entry.js')
         .pipe(webpackStream({
-            mode: 'production',
+            mode: minify ? 'production' : 'none',
             entry: {
                 main: mainFile
             },
             output: {
                 path: path.join(__dirname, "dist"),
                 filename: fileName,
-                library: ["agGrid"],
+                library: ["mcGrid"],
                 libraryTarget: "umd"
             },
             //devtool: 'inline-source-map',
             module: {
-                loaders: [
-                    {test: /\.css$/, loader: "style-loader!css-loader"}
+                rules: [
+                    {
+                        test: /\.css$/,
+                        use: ['style-loader', {
+                            loader:'css-loader',
+                            options: {
+                                minimze: !!minify
+                            }
+                        }]
+                    }
                 ]
-            },
-            plugins: plugins
+            }
         }))
         .pipe(header(bundleTemplate, {pkg: pkg}))
         .pipe(gulp.dest('./dist/'));
@@ -160,18 +165,23 @@ function scssTask() {
                 rules: [
                     {
                         test: /\.scss$/,
-                        use: ExtractTextPlugin.extract({
-                            fallback: 'style-loader',
-                            //resolve-url-loader may be chained before sass-loader if necessary
-                            use: [
-                                {loader: 'css-loader', options: {minimize: false}},
-                                'sass-loader',
-                                {
-                                    loader: 'postcss-loader',
-                                    options: {syntax: 'postcss-scss', plugins: [autoprefixer()]}
-                                },
-                            ]
-                        })
+                        use: [
+                            MiniCssExtractPlugin.loader,
+                            {
+                                loader: "css-loader",
+                                options: {
+                                    minimize: false
+                                }
+                            },
+                            "sass-loader",
+                            {
+                                loader: 'postcss-loader',
+                                options: {
+                                    syntax: 'postcss-scss',
+                                    plugins: [autoprefixer()]
+                                }
+                            }
+                        ]
                     },
                     {
                         test: /\.(svg)$/,
@@ -201,7 +211,7 @@ function scssTask() {
                 ]
             },
             plugins: [
-                new ExtractTextPlugin('[name].css')
+                new MiniCssExtractPlugin('[name].css')
             ]
         }))
         .pipe(filter("**/*.css"))

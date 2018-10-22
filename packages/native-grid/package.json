@@ -25,7 +25,6 @@
         "autoprefixer": "^9.1.5",
         "cache-loader": "^1.2.2",
         "css-loader": "^1.0.0",
-        "extract-text-webpack-plugin": "^4.0.0-beta.0",
         "gulp": "^3.9.1",
         "gulp-clean": "^0.4.0",
         "gulp-filter": "^5.1.0",
@@ -36,6 +35,7 @@
         "gulp-typescript": "^5.0.0-alpha.3",
         "image-webpack-loader": "^4.3.1",
         "merge2": "^1.2.2",
+        "mini-css-extract-plugin": "^0.4.4",
         "node-sass": "^4.9.3",
         "postcss-loader": "^3.0.0",
         "postcss-scss": "^2.0.0",
@@ -43,10 +43,10 @@
         "style-loader": "^0.23.0",
         "svg-colorize-loader": "^0.1.2",
         "tslint": "^5.11.0",
+        "tslint-language-service": "^0.9.9",
         "typescript": "^3.1.1",
         "url-loader": "^1.1.1",
         "vinyl-named": "^1.1.0",
-        "tslint-language-service": "^0.9.9",
         "webpack": "^4.20.2",
         "webpack-stream": "^5.1.1"
     }

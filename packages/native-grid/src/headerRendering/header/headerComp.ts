@@ -75,6 +75,9 @@ export class HeaderComp extends Component implements IHeaderComp {
             HeaderComp.TEMPLATE
         );
 
+        // take account of any newlines & whitespace before/after the actual template
+        template = template && template.trim ? template.trim() : template;
+
         this.setTemplate(template);
         this.params = params;
 
@@ -87,8 +90,9 @@ export class HeaderComp extends Component implements IHeaderComp {
     }
 
     private setupText(displayName: string): void {
+        let displayNameSanitised = _.escape(displayName);
         if (this.eText) {
-            this.eText.innerHTML = displayName;
+            this.eText.innerHTML = displayNameSanitised;
         }
     }
 
@@ -146,7 +150,7 @@ export class HeaderComp extends Component implements IHeaderComp {
             return;
         }
 
-        this.eMenu.addEventListener('click', ()=> this.showMenu(this.eMenu));
+        this.addDestroyableEventListener(this.eMenu, 'click', () => this.showMenu(this.eMenu));
 
         if (!this.gridOptionsWrapper.isSuppressMenuHide()) {
             this.eMenu.style.opacity = '0';
@@ -204,8 +208,6 @@ export class HeaderComp extends Component implements IHeaderComp {
                 if (!columnMoving) {
                     let multiSort = sortUsingCtrl ? (event.ctrlKey || event.metaKey) : event.shiftKey;
                     this.params.progressSort(multiSort);
-                } else {
-                    console.log(`kipping sort cos of moving ${this.lastMovingChanged}`);
                 }
             });
         }
