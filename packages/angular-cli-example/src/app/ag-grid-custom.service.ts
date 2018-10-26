@@ -1,6 +1,6 @@
 import { AgGridEvent, Events, GridOptions, Constants, NavigateToNextCellParams, RowNode } from '@ptsecurity/native-grid';
 import { AnimationQueueEmptyEvent } from '@ptsecurity/native-grid/src/events';
-import { AgGridNg2 } from 'ag-grid-angular';
+import { AgGridNg2 } from '@ptsecurity/mosaic-grid';
 
 interface GridState {
   sortModel: any;

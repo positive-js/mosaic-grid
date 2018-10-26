@@ -23,7 +23,7 @@
     "@ptsecurity/cdk": "github:positive-js/cdk-builds",
     "@ptsecurity/mosaic": "github:positive-js/mosaic-builds",
     "@ptsecurity/mosaic-icons": "2.6.0",
-    "ag-grid-angular": "^19.0.0",
+    "@ptsecurity/mosaic-grid": "^0.1.0",
     "@ptsecurity/native-grid": "^0.1.0",
     "core-js": "^2.5.4",
     "lodash": "^4.17.11",

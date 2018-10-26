@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { GridOptions, ColDef, Events, AgGridEvent, RowEvent, IGetRowsParams, IDatasource } from '@ptsecurity/native-grid';
-import { AgGridNg2 } from 'ag-grid-angular';
+import { AgGridNg2 } from '@ptsecurity/mosaic-grid';
 
 import { AgGridNavigation, AgGridSaveState } from '../ag-grid-custom.service';
 import { AgGridCustomDataService } from '../ag-grid-custom-data.service';

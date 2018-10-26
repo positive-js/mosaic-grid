@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AgGridModule } from 'ag-grid-angular/main';
+import { AgGridModule } from '@ptsecurity/mosaic-grid';
 
 import { McButtonModule, McNavbarModule, McLinkModule, McInputModule, McFormFieldModule, McIconModule } from '@ptsecurity/mosaic';
 
