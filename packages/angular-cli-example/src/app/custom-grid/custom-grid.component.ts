@@ -132,6 +132,10 @@ export class CustomGridComponent implements OnInit {
           `<a href="" class="mc-link"><span class="mc-link__text">${params.value}</span></a>` :
           '';
       }
+      // пример несортируемой колонки
+      if (fieldName === 'task_id') {
+        colDef.suppressSorting = true;
+      }
       return colDef;
     });
   }
@@ -177,7 +181,10 @@ export class CustomGridComponent implements OnInit {
           if (params.startRow === 0) {
             const rowNode = this.gridOptions.api.getDisplayedRowAtIndex(0);
             rowNode.setSelected(true);
-            this.gridOptions.api.setFocusedCell(0, this.gridOptions.columnApi.getAllColumns()[0].getColId());
+            // перемещаем фокус в грид только если текст поиска пуст
+            if (!this.gridDataProvider.searchText) {
+                this.gridOptions.api.setFocusedCell(0, this.gridOptions.columnApi.getAllColumns()[0].getColId());
+            }
           }
         },
         (error) => {

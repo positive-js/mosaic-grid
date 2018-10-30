@@ -109,6 +109,13 @@ $params: (
     .ag-header {
       border-bottom: 1px solid $GRAY-100;
     }
+    .ag-header-row {
+      &:hover {
+        .ag-header-cell-resize {
+          display: block;
+        }
+      }
+    }
     .ag-header-cell {
       border-right: 0;
 
@@ -118,9 +125,11 @@ $params: (
 
       &:hover {
         background-color: $A-BLACK-60;
+      }
 
-        .ag-header-cell-resize {
-          display: block;
+      &.ag-header-cell-sortable {
+        &:hover {
+          cursor: pointer;
         }
       }
     }
@@ -150,14 +159,14 @@ $params: (
 
     .ag-row {
       color: $GRAY-700;
-      border: 1px solid transparent;
+      border: 2px solid transparent;
 
       &:not(.ag-row-selected):hover {
         background-color: $A-BLACK-60;
       }
 
       &.ag-row-focus {
-        border: 1px solid $BLUE-400;
+        border: 2px solid $BLUE-400;
       }
     }
 
