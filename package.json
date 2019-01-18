@@ -2,6 +2,13 @@
     "name": "mosaic-grid",
     "version": "0.0.0",
     "private": true,
+    "scripts": {
+        "updateDependencies": "lerna bootstrap",
+        "updateCoreDependencies": "lerna bootstrap --scope @ptsecurity/native-grid --scope @ptsecurity/mosaic-grid",
+        "build": "lerna run build",
+        "buildCore": "lerna run build --scope @ptsecurity/native-grid --scope @ptsecurity/mosaic-grid",
+        "updateAndRebuild": "npm run updateDependencies && npm run build"
+    },
     "devDependencies": {
         "lerna": "^3.4.1"
     }

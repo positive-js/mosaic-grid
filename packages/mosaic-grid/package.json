@@ -5,9 +5,17 @@
     "main": "main.js",
     "typings": "main.d.ts",
     "scripts": {
-        "clean-src": "rimraf src/*.d.ts src/*.js*",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "update-properties": "node updateGridAndColumnProperties.js",
+        "verify-properties": "node agGridPropertiesCheck.js",
+        "build": "npm run clean && npm run build-no-verify",
         "build-no-verify": "ngc -p tsconfig-src.json && npm run clean-src && gulp clean-build-main",
-        "build:release": "gulp release"
+        "clean-src": "rimraf src/*.d.ts src/*.js*",
+        "clean-main": "rimraf main.metadata.json && rimraf main.js* && rimraf main.d.ts && rimraf aot",
+        "clean": "rimraf aot/* && rimraf dist/* && npm run clean-main",
+        "clean-build": "npm run clean && npm run build",
+        "clean-build-no-verify": "npm run clean && npm run build-no-verify",
+        "release": "npm run update-properties && npm run clean-build"
     },
     "repository": {
         "type": "git",
@@ -25,9 +33,9 @@
     },
     "homepage": "https://angular.ag-grid.com",
     "devDependencies": {
-        "@angular/compiler": "^7.0.0-rc.0",
-        "@angular/compiler-cli": "^7.0.0-rc.0",
-        "@angular/core": "^7.0.0-rc.0",
+        "@angular/compiler": "^7.2.1",
+        "@angular/compiler-cli": "^7.2.1",
+        "@angular/core": "^7.2.1",
         "@ptsecurity/native-grid": "^0.1.0",
         "core-js": "^2.5.7",
         "del": "^3.0.0",
@@ -40,14 +48,15 @@
         "replace-in-file": "^3.4.2",
         "rimraf": "^2.6.2",
         "run-sequence": "^2.2.1",
+        "through2": "^3.0.0",
         "rxjs": "^6.3.3",
         "typescript": "^3.1.1",
         "zone.js": "^0.8.26"
     },
     "peerDependencies": {
-        "@angular/compiler": "^7.0.0-rc.0",
-        "@angular/compiler-cli": "^7.0.0-rc.0",
-        "@angular/core": "^7.0.0-rc.0",
+        "@angular/compiler": "^7.2.1",
+        "@angular/compiler-cli": "^7.2.1",
+        "@angular/core": "^7.2.1",
         "core-js": "^2.5.7",
         "rxjs": "^6.3.3",
         "zone.js": "^0.8.26"

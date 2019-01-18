@@ -5,7 +5,15 @@ const del = require('del');
 const runSequence = require('run-sequence');
 const rename = require('gulp-rename');
 const process = require('child_process');
-const ngc = require('gulp-ngc');
+//const ngc = require('gulp-ngc');
+
+/*
+Это замена неработающего в Angular7 плагина gulp-ngc.
+По сути - немного измененный код из gulp-ngc.
+*/
+const through = require('through2');
+const gutil = require('gulp-util');
+const ngc = require('@angular/compiler-cli/src/main').main;
 
 
 const headerTemplate = '// <%= pkg.name %> v<%= pkg.version %>\n';
@@ -36,13 +44,23 @@ gulp.task('ngc', (callback) => {
 });
 
 gulp.task('ngc-src', (callback) => {
-    return ngc('./tsconfig-src.json', callback);
+    return ngc(['./tsconfig-src.json'], callback);
 });
 
 gulp.task('ngc-main', (callback) => {
     return gulp
         .src('./exports.ts')
-        .pipe(ngc('./tsconfig-main.json', callback));
+        .pipe(through.obj((file, encoding, callback) => {
+            const code = ngc(['./tsconfig-main.json']);
+            let err = code === 0
+                ? null
+                : new gutil.PluginError(
+                    'gulp-ngc',
+                    `${gutil.colors.red('Compilation error.')}\nSee details in the ngc output`,
+                    {fileName: file.path});
+
+            callback(err, file);
+        }));
 });
 
 gulp.task('clean-build-main', ['build-main'], (callback) => {

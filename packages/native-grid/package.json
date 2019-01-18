@@ -5,7 +5,8 @@
     "main": "./main.js",
     "scripts": {
         "test": "exit 0",
-        "lint": "tslint -p tsconfig.json src/ts/**/*.ts"
+        "lint": "tslint -p tsconfig.json src/ts/**/*.ts",
+        "build": "gulp release"
     },
     "repository": {
         "type": "git",
