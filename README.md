@@ -11,3 +11,13 @@ cd ../angular-cli-example/
 npm link @ptsecurity/native-grid
 npm link @ptsecurity/mosaic-grid
 npm install
+
+### Build
+
+cd ../
+npm run buildCore
+
+### Run example
+
+cd angular-cli-example/
+ng serve
