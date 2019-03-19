@@ -1,20 +1,18 @@
 const gulp = require('gulp');
 const path = require('path');
 const clean = require('gulp-clean');
+const rename = require("gulp-rename");
 const autoprefixer = require('autoprefixer');
 const gulpTypescript = require('gulp-typescript');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const typescript = require('typescript');
-const merge = require('merge2');
 const header = require('gulp-header');
-const named = require('vinyl-named');
-const webpackStream = require('webpack-stream');
-const filter = require('gulp-filter');
-const replace = require('gulp-replace');
-const rename = require('gulp-rename');
-
-
+const merge = require('merge2');
 const pkg = require('./package.json');
+const webpackStream = require('webpack-stream');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const filter = require('gulp-filter');
+const named = require('vinyl-named');
+const replace = require('gulp-replace');
 
 const bundleTemplate = '// <%= pkg.name %> v<%= pkg.version %>\n';
 
@@ -26,31 +24,94 @@ const headerTemplate = ['/**',
     ' */',
     ''].join('\n');
 
-const dtsHeaderTemplate = '';
+const dtsHeaderTemplate =
+    '// Type definitions for <%= pkg.name %> v<%= pkg.version %>\n' +
+    '// Project: <%= pkg.homepage %>\n' +
+    '// Definitions by: Niall Crosby <https://github.com/ag-grid/>\n';
 
-gulp.task('default', ['webpack-run-all']);
-gulp.task('release', ['webpack-run-all']);
+gulp.task('default', ['webpack-all']);
+gulp.task('release', ['webpack-all']);
 
-gulp.task('webpack-run-all', ['webpack', 'webpack-minify', 'webpack-noStyle', 'webpack-minify-noStyle', 'tsc-main'], tscSrcTask);
+gulp.task('webpack-all', ['webpack', 'webpack-minify', 'webpack-noStyle', 'webpack-minify-noStyle'], tscSrcTask);
 
-gulp.task('webpack', ['tsc', 'scss'], webpackTask.bind(null, false, true));
-gulp.task('webpack-minify', ['tsc', 'scss'], webpackTask.bind(null, true, true));
 gulp.task('webpack-minify-noStyle', ['tsc', 'scss'], webpackTask.bind(null, true, false));
 gulp.task('webpack-noStyle', ['tsc', 'scss'], webpackTask.bind(null, false, false));
+gulp.task('webpack-minify', ['tsc', 'scss'], webpackTask.bind(null, true, true));
+gulp.task('webpack', ['tsc', 'scss'], webpackTask.bind(null, false, true));
 
+gulp.task('scss-watch', ['scss-no-clean'], scssWatch);
+gulp.task('scss-no-clean', scssTask);
+
+gulp.task('tsc-no-clean', tscSrcTask);
 gulp.task('tsc', ['tsc-src'], tscMainTask);
 gulp.task('tsc-src', ['cleanDist'], tscSrcTask);
 gulp.task('tsc-main', ['cleanMain'], tscMainTask);
-
 gulp.task('scss', ['cleanDist'], scssTask);
-
 
 gulp.task('cleanDist', cleanDist);
 gulp.task('cleanMain', cleanMain);
 
+gulp.task('tsc-watch', ['tsc-no-clean'], tscWatch);
+
+function scssWatch() {
+    gulp.watch('./src/styles/!**/!*', ['scss-no-clean']);
+}
+
+function tscWatch() {
+    gulp.watch('./src/ts/**/*', ['tsc-no-clean']);
+}
+
+function cleanDist() {
+    return gulp
+        .src('dist', {read: false})
+        .pipe(clean());
+}
+
+function cleanMain() {
+    return gulp
+        .src(['./main.d.ts', 'main.js'], {read: false})
+        .pipe(clean());
+}
+
+function tscSrcTask() {
+    const tsProject = gulpTypescript.createProject('./tsconfig.json', {typescript: typescript});
+
+    const tsResult = gulp
+        .src('src/ts/**/*.ts')
+        .pipe(tsProject());
+
+    return merge([
+        tsResult.dts
+            .pipe(header(dtsHeaderTemplate, {pkg: pkg}))
+            .pipe(gulp.dest('dist/lib')),
+        tsResult.js
+            .pipe(header(headerTemplate, {pkg: pkg}))
+            .pipe(gulp.dest('dist/lib'))
+    ]);
+}
+
+function tscMainTask() {
+    const tsProject = gulpTypescript.createProject('./tsconfig-main.json', {typescript: typescript});
+
+    const tsResult = gulp
+        .src('./src/ts/main.ts')
+        .pipe(tsProject());
+
+    return merge([
+        tsResult.dts
+            .pipe(replace("\"./", "\"./dist/lib/"))
+            .pipe(header(dtsHeaderTemplate, {pkg: pkg}))
+            .pipe(rename("main.d.ts"))
+            .pipe(gulp.dest('./')),
+        tsResult.js
+            .pipe(replace("require(\"./", "require(\"./dist/lib/"))
+            .pipe(header(headerTemplate, {pkg: pkg}))
+            .pipe(rename("main.js"))
+            .pipe(gulp.dest('./'))
+    ]);
+}
 
 function webpackTask(minify, styles) {
-
     const mainFile = styles ? './main-with-styles.js' : './main.js';
 
     let fileName = 'mc-grid';
@@ -89,56 +150,6 @@ function webpackTask(minify, styles) {
         .pipe(gulp.dest('./dist/'));
 }
 
-function cleanDist() {
-    return gulp
-        .src('dist', {read: false})
-        .pipe(clean());
-}
-
-function cleanMain() {
-    return gulp
-        .src(['./main.d.ts', 'main.js'], {read: false})
-        .pipe(clean());
-}
-
-function tscSrcTask() {
-    const tsProject = gulpTypescript.createProject('./tsconfig.json', {typescript: typescript});
-
-    const tsResult = gulp
-        .src('src/**/*.ts')
-        .pipe(tsProject());
-
-    return merge([
-        tsResult.dts
-            .pipe(header(dtsHeaderTemplate, {pkg: pkg}))
-            .pipe(gulp.dest('dist/lib')),
-        tsResult.js
-            .pipe(header(headerTemplate, {pkg: pkg}))
-            .pipe(gulp.dest('dist/lib'))
-    ]);
-}
-
-function tscMainTask() {
-    const tsProject = gulpTypescript.createProject('./tsconfig-main.json', {typescript: typescript});
-
-    const tsResult = gulp
-        .src('./src/main.ts')
-        .pipe(tsProject());
-
-    return merge([
-        tsResult.dts
-            .pipe(replace("\"./", "\"./dist/lib/"))
-            .pipe(header(dtsHeaderTemplate, {pkg: pkg}))
-            .pipe(rename("main.d.ts"))
-            .pipe(gulp.dest('./')),
-        tsResult.js
-            .pipe(replace("require(\"./", "require(\"./dist/lib/"))
-            .pipe(header(headerTemplate, {pkg: pkg}))
-            .pipe(rename("main.js"))
-            .pipe(gulp.dest('./'))
-    ]);
-}
-
 function scssTask() {
     const svgMinOptions = {
         plugins: [
@@ -157,10 +168,10 @@ function scssTask() {
     };
 
     // Uncompressed
-    return gulp.src(['styles/*.scss', '!styles/_*.scss'])
+    return gulp.src(['src/styles/**/*.scss', '!src/styles/**/_*.scss'])
         .pipe(named())
         .pipe(webpackStream({
-            mode: 'production',
+            mode: 'none',
             module: {
                 rules: [
                     {
@@ -177,8 +188,11 @@ function scssTask() {
                             {
                                 loader: 'postcss-loader',
                                 options: {
-                                    syntax: 'postcss-scss',
-                                    plugins: [autoprefixer()]
+                                    syntax: 'postcss-scss', 
+                                    plugins: [autoprefixer({
+                                        browsers: ["last 2 version"],
+                                        flexbox: true
+                                    })]
                                 }
                             }
                         ]
@@ -217,3 +231,4 @@ function scssTask() {
         .pipe(filter("**/*.css"))
         .pipe(gulp.dest('dist/styles/'));
 }
+

@@ -51,6 +51,7 @@
         "through2": "^3.0.0",
         "rxjs": "^6.3.3",
         "typescript": "^3.1.1",
+        "typescript-simple": "8.0.6",
         "zone.js": "^0.8.26"
     },
     "peerDependencies": {

@@ -1,11 +1,13 @@
+const headerTemplate = '// <%= pkg.name %> v<%= pkg.version %>\n';
+
 const gulp = require('gulp');
 const header = require('gulp-header');
 const pkg = require('./package.json');
 const del = require('del');
-const runSequence = require('run-sequence');
-const rename = require('gulp-rename');
-const process = require('child_process');
 //const ngc = require('gulp-ngc');
+const runSequence = require('run-sequence');
+const rename = require("gulp-rename");
+const gridToNg = require('./updateGridAndColumnProperties');
 
 /*
 Это замена неработающего в Angular7 плагина gulp-ngc.
@@ -15,16 +17,6 @@ const through = require('through2');
 const gutil = require('gulp-util');
 const ngc = require('@angular/compiler-cli/src/main').main;
 
-
-const headerTemplate = '// <%= pkg.name %> v<%= pkg.version %>\n';
-
-
-gulp.task('release', ['clean-ngc'], function () {
-    require('./agGridPropertiesCheck');
-    gulp.src(['./dist/', '!./dist/**/*.metadata.json'])
-        .pipe(header(headerTemplate, {pkg: pkg}))
-        .pipe(gulp.dest('./dist/'));
-});
 
 gulp.task('clean', function () {
     return del(['aot/**', '!aot',
@@ -43,8 +35,28 @@ gulp.task('ngc', (callback) => {
     return runSequence('ngc-src', 'ngc-main', callback);
 });
 
-gulp.task('ngc-src', (callback) => {
-    return ngc(['./tsconfig-src.json'], callback);
+gulp.task('ngc-src', ['update-properties'], (callback) => {
+    return ngc('./tsconfig-src.json', callback);
+});
+
+gulp.task('clean-build-main', ['build-main'], (callback) => {
+    // post build cleanup
+    return del(['./aot', 'exports.js*', 'exports.d.ts', 'exports.metadata.json', './src/*.js*', './src/*.d.ts', './src/*.metadata.*'], callback);
+});
+
+gulp.task('build-main', ['ngc-main'], () => {
+    // this is here to facilitate the case where ag-grid-angular is symlinked into another project
+    // if we have main.ts and leave it as that the the project that depends on ag-grid-angular (again, only if symlinked)
+    // will complain about node_modules/ag-grid-angular/main.ts not being part of the source files
+    gulp.src("./exports.js")
+        .pipe(rename(('main.js')))
+        .pipe(gulp.dest("./"));
+    gulp.src("./exports.d.ts")
+        .pipe(rename(('main.d.ts')))
+        .pipe(gulp.dest("./"));
+    return gulp.src("./exports.metadata.json")
+        .pipe(rename(('main.metadata.json')))
+        .pipe(gulp.dest("./"));
 });
 
 gulp.task('ngc-main', (callback) => {
@@ -63,46 +75,31 @@ gulp.task('ngc-main', (callback) => {
         }));
 });
 
-gulp.task('clean-build-main', ['build-main'], (callback) => {
-    // post build cleanup
-    return del([
-        './aot', 'exports.js*', 'exports.d.ts', 'exports.metadata.json',
-        './src/*.js*', './src/*.d.ts', './src/*.metadata.*'
-    ], callback);
+gulp.task('watch', ['ngc-src'], () => {
+    gulp.watch([
+            './node_modules/@ptsecurity/native-grid/src/ts/propertyKeys.ts',
+            './node_modules/@ptsecurity/native-grid/src/ts/components/colDefUtil.ts'
+        ],
+        // {awaitWriteFinish: true},
+        ['update-properties']);
+
+    // gulp.watch([
+    //         './src/*.ts',
+    //         './node_modules/@ptsecurity/native-grid/dist/lib/**/*'
+    //     ],
+    //     ['ngc-src']);
 });
 
-gulp.task('build-main', ['ngc-main'], (callback) => {
-    gulp.src("./exports.js")
-        .pipe(rename(('main.js')))
-        .pipe(gulp.dest("./"));
-    gulp.src("./exports.d.ts")
-        .pipe(rename(('main.d.ts')))
-        .pipe(gulp.dest("./"));
-    return gulp.src("./exports.metadata.json")
-        .pipe(rename(('main.metadata.json')))
-        .pipe(gulp.dest("./"));
+gulp.task('update-properties', (cb) => {
+    gridToNg.updatePropertiesSrc(cb);
 });
 
 
-function ngcCompile(callback) {
+// the main release task - clean, compile and add header template
+gulp.task('release', ['clean-ngc'], function () {
+    require('./agGridPropertiesCheck');
+    gulp.src(['./dist/', '!./dist/**/*.metadata.json'])
+        .pipe(header(headerTemplate, {pkg: pkg}))
+        .pipe(gulp.dest('./dist/'));
+});
 
-    const ngcFlags = ['-p', './tsconfig-main.json'];
-
-    // tslint:disable-next-line
-    return new Promise((resolve, reject) => {
-
-        const binaryPath = resolvePath('./node_modules/.bin/ngc');
-        const childProcess = process.spawn(binaryPath, ngcFlags, {shell: true});
-        console.log('dfdfdf');
-        // Pipe stdout and stderr from the child process.
-        childProcess.stdout.on('data', (data) => console.log(`${data}`));
-        childProcess.stderr.on('data', (data) => console.error(chalk.default.red(`${data}`)));
-        childProcess.on('exit', (exitCode) => {
-
-
-            callback();
-            // tslint:disable-next-line
-            exitCode === 0 ? resolve() : reject(`ngc compilation failure`);
-        });
-    });
-}
