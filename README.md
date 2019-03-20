@@ -1,7 +1,8 @@
 ### Сборка
 
 cd packages/native-grid/   
-npm link
+npm link   
+npm run build
 
 cd ../../packages/mosaic-grid/   
 npm link @ptsecurity/native-grid   
@@ -11,17 +12,15 @@ cd ../../
 npm install   
 npm run buildCore
 
-### Сборка примера
+### Сборка и запуск примера
+
 cd packages/angular-cli-example/   
 npm link @ptsecurity/native-grid   
 npm link @ptsecurity/mosaic-grid   
 npm install
-
-Note: If you get "npm ERR! Maximum call stack size exceeded" try to delete packages/angular-cli-example/package-lock.json and packages/angular-cli-example/node_modules and re-run npm install
-
-### Запуск примера
-cd packages/angular-cli-example/   
 ng serve
+
+Note: Если вылезает ошибка "npm ERR! Maximum call stack size exceeded" можно попробовать удалить packages/angular-cli-example/package-lock.json и packages/angular-cli-example/node_modules и перезапустить npm install
 
 ### Как обновить код из исходного репозитория https://github.com/ag-grid/ag-grid
 1. Клонируем https://github.com/ag-grid/ag-grid
