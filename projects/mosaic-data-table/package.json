@@ -1,0 +1,23 @@
+{
+    "name": "@ptsecurity/mosaic-data-table",
+    "version": "1.0.0",
+    "description": "Angular Data Table",
+    "peerDependencies": {
+        "@angular/common": "^7.0.0-rc.0 || ^7.0.0",
+        "@angular/core": "^7.0.0-rc.0 || ^7.0.0",
+        "@angular/forms": "^7.0.0-rc.0 || ^7.0.0",
+        "rxjs": "^6.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:positive-js/mosaic-grid.git"
+    },
+    "keywords": [
+        "Angular",
+        "Data Table"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/positive-js/mosaic-grid/issues"
+    }
+}
