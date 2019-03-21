@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { IDataTableRowClickEvent } from '@ptsecurity/mosaic-data-table';
+
 
 @Component({
     selector: 'app-root',
@@ -21,7 +23,7 @@ export class AppComponent {
             } );
     }
 
-    onRowClick(clickEventArgs: any): void {
+    onRowClick(clickEventArgs: IDataTableRowClickEvent<any>): void {
         this.allEventsData.push(`[SINGLE CLICK] perform on row ID - ${clickEventArgs.row.item.id}`);
     }
 }

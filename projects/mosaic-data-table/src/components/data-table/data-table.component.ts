@@ -12,9 +12,8 @@ import {
     DataFetchMode,
     IDataQueryResult, IDataRequestParams,
     IDataTableCellClickEvent,
-    IDataTableRowClickEvent
+    IDataTableRowClickEvent, IDataTableUniqueField
 } from '../../types/data-table.model';
-import { McVirtualScrollDirective } from '../../directives/table-virtual-scroll.directive';
 import { DataTableColumnComponent } from '../data-table-column/data-table-column.component';
 import { fromEvent, merge, Observable, of, Subject, Subscription } from 'rxjs';
 import { EventStateService } from '../../services/table-events.service';
@@ -36,9 +35,6 @@ import { get } from '../../utils';
     ]
 })
 export class DataTableComponent implements OnDestroy, AfterContentInit, AfterViewInit, OnChanges {
-
-    @ContentChild(McVirtualScrollDirective)
-    mcVirtualScrollDirective: McVirtualScrollDirective;
 
     @ContentChildren(DataTableColumnComponent)
     columns: QueryList<DataTableColumnComponent>;
@@ -211,6 +207,52 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
 
         if (this.columns) {
 
+            params.fields = this.columns
+                .filter(column => {
+                    return column.sortable || column.filterable;
+                })
+                .reduce((acc: IDataTableUniqueField[], column: DataTableColumnComponent) => {
+                    if (column.sortField || column.filterField) {
+                        if (column.sortField === column.filterField) {
+                            acc.push({
+                                field: column.sortField,
+                                column: column
+                            });
+                        }
+
+                        if (column.sortField) {
+                            acc.push({
+                                field: column.sortField,
+                                column: column
+                            });
+                        }
+
+                        if (column.filterField) {
+                            acc.push({
+                                field: column.filterField,
+                                column: column
+                            });
+                        }
+                    } else {
+                        acc.push({
+                            field: column.field,
+                            column: column
+                        });
+                    }
+
+                    return acc;
+                }, [])
+                .map((uniqueField: IDataTableUniqueField) => {
+
+                    return {
+                        field: uniqueField.field,
+                        sortable: uniqueField.column.sortable,
+                        filterable: uniqueField.column.filterable,
+                        sortOrder: uniqueField.column.sortOrder,
+                        filterValue: uniqueField.column.filter,
+                        filterExpression: uniqueField.column.filterExpression
+                    };
+                });
         }
 
         return this.dataStateService.onDataBind(params);

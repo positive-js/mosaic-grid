@@ -70,6 +70,13 @@ export interface IDataCellBindEvent<T> {
     row: IDataTableRow<T>;
 }
 
+export interface IDataTableUniqueField {
+
+    field: string;
+
+    column: any;
+}
+
 export enum DataFetchMode {
     /**
      * reset table state
@@ -86,3 +93,6 @@ export enum DataFetchMode {
      */
     SOFT_LOAD
 }
+
+
+export type DataTableSortOrder = '' | 'asc' | 'desc';

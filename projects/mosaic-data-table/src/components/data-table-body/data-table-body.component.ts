@@ -6,12 +6,8 @@ import { DataStateService } from '../../services/data-state.service';
 import { EventStateService } from '../../services/table-events.service';
 import { IDataTableRow } from '../../types/data-table.model';
 import { get } from '../../utils';
-import { McVirtualScrollDirective } from '../../directives/table-virtual-scroll.directive';
 
 
-/**
- * Data table body component; Data table body table definition rendering is handled by this component
- */
 @Component({
     exportAs: 'mcDataTableBody',
     selector: '[mcDataTableBody]',
@@ -19,16 +15,13 @@ import { McVirtualScrollDirective } from '../../directives/table-virtual-scroll.
 })
 export class DataTableBodyComponent {
     @Input()
-    public columns: DataTableColumnComponent[];
-
-    @ContentChild(McVirtualScrollDirective)
-    mcVirtualScrollDirective: McVirtualScrollDirective;
+    columns: DataTableColumnComponent[];
 
     @Input()
-    public rowExpandTemplate: TemplateRef<any>;
+    rowExpandTemplate: TemplateRef<any>;
 
     @Input()
-    public rowExpandLoadingSpinnerTemplate: TemplateRef<any>;
+    rowExpandLoadingSpinnerTemplate: TemplateRef<any>;
 
     constructor(
         public config: DataTableConfigService,

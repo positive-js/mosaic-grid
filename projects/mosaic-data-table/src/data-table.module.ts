@@ -4,21 +4,30 @@ import { FormsModule } from '@angular/forms';
 import { DATA_TABLE_CONFIG, IDataTableConfig } from './services/config.service';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { ScrollingModule } from '@ptsecurity/cdk/scrolling';
-import { McVirtualScrollDirective } from './directives/table-virtual-scroll.directive';
 import { DataTableColumnComponent } from './components/data-table-column/data-table-column.component';
 import { DataTableBodyComponent } from './components/data-table-body/data-table-body.component';
 import { InitDirective } from './directives/init.directive';
+import { PixelConverterPipe } from './pipes/pixel-converter.pipe';
+import { DataTableColGroupComponent } from './components/data-table-col-group/data-table-col-group.component';
+import { DataTableHeadComponent } from './components/data-table-head/data-table-head.component';
+import { DataTableColumnTitleHeaderComponent } from './components/data-table-column-title-header/data-table-column-title-header.component';
 
 
 const COMPONENTS = [
     DataTableComponent,
     DataTableColumnComponent,
     DataTableBodyComponent,
+    DataTableColGroupComponent,
+    DataTableHeadComponent,
+    DataTableColumnTitleHeaderComponent
 ];
 
 const DIRECTIVES = [
-    McVirtualScrollDirective,
     InitDirective
+];
+
+const PIPES = [
+    PixelConverterPipe
 ];
 
 @NgModule({
@@ -30,11 +39,13 @@ const DIRECTIVES = [
     ],
     declarations: [
         ...COMPONENTS,
-        ...DIRECTIVES
+        ...DIRECTIVES,
+        ...PIPES
     ],
     exports: [
         DataTableComponent,
-        DataTableColumnComponent
+        DataTableColumnComponent,
+        ...PIPES
     ]
 })
 export class McDataTableModule {
@@ -51,3 +62,6 @@ export class McDataTableModule {
         };
     }
 }
+
+
+export * from './types/data-table.model';

@@ -1,6 +1,7 @@
 import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 
 import { DataTableConfigService } from '../../services/config.service';
+import { DataTableSortOrder } from '../..';
 
 
 @Component({
@@ -18,7 +19,13 @@ export class DataTableColumnComponent {
     sortable = false;
 
     @Input()
+    sortField: string;
+
+    @Input()
     filterable = false;
+
+    @Input()
+    filterField: string;
 
     @Input()
     resizable = false;
@@ -32,6 +39,25 @@ export class DataTableColumnComponent {
     @Input()
     visible = true;
 
+    actualWidth: number;
+
+    private _baseSortOrder: DataTableSortOrder = '';
+    private _sortOrder: DataTableSortOrder = '';
+
+    @Input()
+    set sortOrder(value: DataTableSortOrder) {
+        this._sortOrder = value;
+        this._baseSortOrder = value;
+    }
+
+    /**
+     * Get initial column sort order
+     * @return Data sort order
+     */
+    get sortOrder(): DataTableSortOrder {
+        return this._sortOrder;
+    }
+
     @Input()
     resizeMinLimit: number;
 
@@ -44,5 +70,30 @@ export class DataTableColumnComponent {
 
     constructor(private dataTableConfigService: DataTableConfigService) {
 
+    }
+
+    getNewSortOrder(): DataTableSortOrder {
+        let newSortOrder: DataTableSortOrder;
+        switch (this.sortOrder) {
+            case 'asc':
+                newSortOrder = 'desc';
+                break;
+            case 'desc':
+                newSortOrder = '';
+                break;
+            case '':
+                newSortOrder = 'asc';
+                break;
+        }
+
+        return newSortOrder;
+    }
+
+    getSortIconClass(): any {
+        return {
+            'sort-asc': this.sortOrder === 'asc',
+            'sort-dsc': this.sortOrder === 'desc',
+            'sort-reset': !this.sortOrder
+        };
     }
 }

@@ -1,14 +1,22 @@
 <div class="mc-data-table-container">
-    <cdk-virtual-scroll-viewport
-        [itemSize]="mcVirtualItemSize"
-        [maxBufferPx]="mcVirtualMaxBufferPx"
-        [minBufferPx]="mcVirtualMinBufferPx"
-        [style.height]="mcScroll.y">
-            <table class="mc-data-table" [style.width]="mcScroll.x">
-                <tbody
-                    mcDataTableBody
-                    [columns]="columns"
-                ></tbody>
-            </table>
-    </cdk-virtual-scroll-viewport>
+    <div class="mc-data-table-content-header">
+        <table class="mc-data-table">
+            <colgroup mcDataTableColGroup [columns]="columns"></colgroup>
+            <thead mcDataTableHead [columns]="columns"></thead>
+        </table>
+    </div>
+    <div class="mc-data-table-content">
+        <cdk-virtual-scroll-viewport
+            [itemSize]="mcVirtualItemSize"
+            [maxBufferPx]="mcVirtualMaxBufferPx"
+            [minBufferPx]="mcVirtualMinBufferPx"
+            [style.height]="mcScroll.y">
+                <table class="mc-data-table" [style.width]="mcScroll.x">
+                    <tbody
+                        mcDataTableBody
+                        [columns]="columns"
+                    ></tbody>
+                </table>
+        </cdk-virtual-scroll-viewport>
+    </div>
 </div>

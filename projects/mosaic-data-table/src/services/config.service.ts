@@ -8,9 +8,16 @@ export interface IDataTableConfig {
     expandableRows?: boolean;
     showIndexColumn?: boolean;
     expandOnRowClick?: boolean;
+    expanderColumnWidth?: string | number;
+    indexColumnWidth?: string | number;
+    selectionColumnWidth?: string | number;
     rowSelectable?: boolean;
     selectTrackBy?: string;
+    showRowSelectAllCheckbox?: boolean;
+    showRowSelectCheckboxColumn?: boolean;
     selectMode?: string;
+    indexColumnTitle?: boolean;
+    multiColumnSortable?: boolean;
 
     relativeParentElement?: HTMLElement;
 }
@@ -26,6 +33,13 @@ export class DataTableConfigService implements IDataTableConfig {
     expandableRows = false;
     selectOnRowClick = false;
     expandOnRowClick = false;
+    multiColumnSortable = false;
+    indexColumnTitle = false;
+    showRowSelectAllCheckbox = false;
+    showRowSelectCheckboxColumn = false;
+    expanderColumnWidth: string | number = 30;
+    indexColumnWidth: string | number = 30;
+    selectionColumnWidth: string | number = 30;
     rowSelectable = false;
     selectMode = 'single';
     selectTrackBy = 'id';

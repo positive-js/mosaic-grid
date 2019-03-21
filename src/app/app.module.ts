@@ -4,6 +4,7 @@ import { McDataTableModule } from '@ptsecurity/mosaic-data-table';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
     imports: [
         CommonModule,
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
 
         McDataTableModule.forRoot()

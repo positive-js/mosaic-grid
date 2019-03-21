@@ -1,0 +1,33 @@
+<th class="mc-data-table-expand-column-header" *ngIf="config.expandableRows"></th>
+<th class="mc-data-table-index-column-header" *ngIf="config.showIndexColumn">
+    <span [textContent]="config.indexColumnTitle"></span>
+</th>
+<th class="mc-data-table-select-column-header" *ngIf="config.showRowSelectCheckboxColumn">
+<!--    TODO: -->
+</th>
+<ng-container *ngFor="let column of columns">
+    <th
+        class="mc-data-table-column-header"
+        #columnHeader
+        *ngIf="column.visible"
+        (click)="onHeaderClick(column, $event)"
+        (ngElementWidth)="setColumnWidth($event, column)"
+        [class.sortable]="column.sortable"
+        [class.resizable]="column.resizable"
+    >
+        <span *ngIf="!column.headerTemplate"
+              class="mc-caption"
+              [textContent]="column.title">
+
+        </span>
+        <ng-container *ngIf="column.headerTemplate" [ngTemplateOutlet]="column.headerTemplate"
+                      [ngTemplateOutletContext]="{ column: column }">
+        </ng-container>
+        <span class="mc-data-table-column-sort-icon"
+              [hidden]="!column.sortable"
+              [ngClass]="column.getSortIconClass()"></span>
+        <span class="mc-data-table-column-resize-handle"
+              *ngIf="column.resizable"
+              (mousedown)="onColumnResize($event, column, columnHeader)"> </span>
+    </th>
+</ng-container>
