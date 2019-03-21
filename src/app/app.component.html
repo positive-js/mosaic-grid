@@ -1,6 +1,22 @@
-text
 
-<mc-data-table>
+<mc-data-table
+    [items]="data"
+    [mcVirtualItemSize]="20"
+    [selectOnRowClick]="true"
+    [rowSelectable]="true"
+    [mcScroll]="{ x:'1300px',y: '240px' }"
+    (rowClick)="onRowClick($event)"
 
+    style="padding: 18px;"
+>
+    <mc-data-table-column
+        [field]="'time'"
+        [title]="'Time'">
+    </mc-data-table-column>
+
+    <mc-data-table-column
+        [field]="'eventType'"
+        [title]="'Event Type'">
+    </mc-data-table-column>
 
 </mc-data-table>

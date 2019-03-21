@@ -334,6 +334,13 @@
   dependencies:
     tslib "^1.7.1"
 
+"@ptsecurity/mosaic@^1.0.0-beta.4":
+  version "1.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@ptsecurity/mosaic/-/mosaic-1.0.0-beta.4.tgz#7fa26707fbf0a0f0f898144e3ae9f64a98306eff"
+  integrity sha512-ei1m8MIgGFC9tbDGkPincBRjZws8bJVNtuSBOZND6TsSdlhKyfEw9BVJdm4CKSinWgtXeGgskgywl1tUHUALIg==
+  dependencies:
+    tslib "^1.7.1"
+
 "@schematics/angular@7.3.6":
   version "7.3.6"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-7.3.6.tgz#e827111e7d3cdf950efcca504389cbade3c9c59a"

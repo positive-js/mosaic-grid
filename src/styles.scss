@@ -1,7 +1,32 @@
 // Global style dependencies required for example
 
+@import '../dist/mosaic-data-table/themes/data-table.scss';
+
+
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
+
+@import '~@ptsecurity/mosaic/visual';
+
+@include mosaic-visual();
+
+@import '~@ptsecurity/mosaic/theming';
+
+$primary: mc-palette($mc-blue, 400, 500, 600);
+$second: mc-palette($mc-grey, 100, 300, 400);
+$error: mc-palette($mc-red, 60, 400, 500);
+
+$info: mc-palette($mc-blue, 60, 200, 400);
+$success: mc-palette($mc-green, 60, 200, 400);
+$warning: mc-palette($mc-yellow, 60, 200, 400);
+
+$theme: mc-light-theme($primary, $second, $error, $info, $success, $warning);
+
+// Include all typography for the components.
+@include mc-core();
+
+// Include all theme styles for the components.
+@include mosaic-theme($theme);

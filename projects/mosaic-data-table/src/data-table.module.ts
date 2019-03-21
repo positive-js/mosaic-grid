@@ -7,16 +7,18 @@ import { ScrollingModule } from '@ptsecurity/cdk/scrolling';
 import { McVirtualScrollDirective } from './directives/table-virtual-scroll.directive';
 import { DataTableColumnComponent } from './components/data-table-column/data-table-column.component';
 import { DataTableBodyComponent } from './components/data-table-body/data-table-body.component';
+import { InitDirective } from './directives/init.directive';
 
 
 const COMPONENTS = [
     DataTableComponent,
     DataTableColumnComponent,
-    DataTableBodyComponent
+    DataTableBodyComponent,
 ];
 
 const DIRECTIVES = [
-    McVirtualScrollDirective
+    McVirtualScrollDirective,
+    InitDirective
 ];
 
 @NgModule({
@@ -31,7 +33,8 @@ const DIRECTIVES = [
         ...DIRECTIVES
     ],
     exports: [
-        DataTableComponent
+        DataTableComponent,
+        DataTableColumnComponent
     ]
 })
 export class McDataTableModule {

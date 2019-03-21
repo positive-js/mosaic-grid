@@ -1,45 +1,14 @@
-
 <div class="mc-data-table-container">
-
-
-<div class="mc-data-table-content-container">
-
-    <div class="mc-data-table-content">
-        <table class="mc-data-table">
-            <tbody
-                mcDataTableBody
-                [columns]="columns"
-            ></tbody>
-        </table>
-    </div>
+    <cdk-virtual-scroll-viewport
+        [itemSize]="mcVirtualItemSize"
+        [maxBufferPx]="mcVirtualMaxBufferPx"
+        [minBufferPx]="mcVirtualMinBufferPx"
+        [style.height]="mcScroll.y">
+            <table class="mc-data-table" [style.width]="mcScroll.x">
+                <tbody
+                    mcDataTableBody
+                    [columns]="columns"
+                ></tbody>
+            </table>
+    </cdk-virtual-scroll-viewport>
 </div>
-
-</div>
-
-<!--<ng-template #tableInnerTemplate>-->
-
-<!--    <ng-template #scrollViewTpl>-->
-<!--        <cdk-virtual-scroll-viewport-->
-<!--            class="mc-table-body"-->
-<!--            [itemSize]="mcVirtualItemSize"-->
-<!--            [maxBufferPx]="mcVirtualMaxBufferPx"-->
-<!--            [minBufferPx]="mcVirtualMinBufferPx"-->
-<!--            [style.height]="mcScroll.y">-->
-<!--        >-->
-<!--            <table [style.width]="mcScroll.x">-->
-<!--                <tbody>-->
-<!--                    <ng-container *cdkVirtualFor="let item of dataSource; let i = index">-->
-<!--                        <ng-template [ngTemplateOutlet]="mcVirtualScrollDirective?.templateRef"-->
-<!--                                     [ngTemplateOutletContext]="{$implicit:item, index:i}">-->
-<!--                        </ng-template>-->
-<!--                    </ng-container>-->
-<!--                </tbody>-->
-<!--            </table>-->
-
-<!--        </cdk-virtual-scroll-viewport>-->
-<!--    </ng-template>-->
-
-<!--    <div class="mc-table-footer" *ngIf="mcFooter">-->
-<!--        mcFooter-->
-<!--    </div>-->
-<!--</ng-template>-->

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 
 import { DataTableConfigService } from '../../services/config.service';
 
@@ -18,13 +18,13 @@ export class DataTableColumnComponent {
     sortable = false;
 
     @Input()
-    public filterable = false;
+    filterable = false;
 
     @Input()
-    public resizable = false;
+    resizable = false;
 
     @Input()
-    public field: string;
+    field: string;
 
     @Input()
     width: number | string;
@@ -34,6 +34,12 @@ export class DataTableColumnComponent {
 
     @Input()
     resizeMinLimit: number;
+
+    @ContentChild('mcDataTableCell')
+    cellTemplate: TemplateRef<any>;
+
+    @ContentChild('mcDataTableHeader')
+    headerTemplate: TemplateRef<any>;
 
 
     constructor(private dataTableConfigService: DataTableConfigService) {

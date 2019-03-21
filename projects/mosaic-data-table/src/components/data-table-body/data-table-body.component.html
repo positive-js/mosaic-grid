@@ -1,41 +1,49 @@
-<ng-container *ngFor="let row of dataStateService.dataRows">
-  <ng-container *ngFor="let ignored of getRowSpanCollection(row); let rowSpanIndex = index; let rowSpanCount = count">
-    <tr
-      class="mc-data-table-row"
-    >
-      <td
-        class="mc-data-table-row-expand-button mc-ignore-propagation"
-      >
-      </td>
-      <td
-        class="index-column"
-      ></td>
-      <td
-        class="mc-data-table-select-column mc-ignore-propagation"
-      >
-        <input
-          class="mc-data-table-checkbox-input mc-ignore-propagation"
-          type="checkbox"
-          [(ngModel)]="row.selected"
-          (click)="onRowSelectClick(row, $event)"
-          (change)="onRowSelectChange(row)"
-        />
-      </td>
-      <ng-container *ngFor="let column of columns">
-        <ng-container *ngIf="column.visible">
-          <td
-            class="mc-data-table-data-column"
-          >
-            <span>{{ getFieldValue(row, column) }}</span>
-          </td>
-          <ng-container
-            *ngIf="column.cellTemplate"
-            [ngTemplateOutlet]="column.cellTemplate"
-            [ngTemplateOutletContext]="{ column: column, row: row, spanIndex: rowSpanIndex, rowSpan: rowSpanCount }"
-          >
-          </ng-container>
-        </ng-container>
-      </ng-container>
-    </tr>
-  </ng-container>
+<ng-container *cdkVirtualFor="let row of dataStateService.dataRows; let i = index">
+    <ng-container *ngFor="let ignored of getRowSpanCollection(row);
+                          let rowSpanIndex = index;
+                          let rowSpanCount = count">
+        <tr
+            class="mc-data-table-row"
+            [attr.title]="row.tooltip"
+            [class.selected]="row.selected"
+            [class.clickable]="config.selectOnRowClick"
+            [class.disabled]="row.disabled"
+            (click)="rowClicked(row, $event)"
+        >
+            <td
+                class="mc-data-table-row-expand-button mc-ignore-propagation"
+                *ngIf="config.expandableRows && !rowSpanIndex"
+            >
+                <div>Todo Expand</div>
+            </td>
+            <td
+                class="index-column"
+                *ngIf="config.showIndexColumn && !rowSpanIndex"
+            >
+                <div>Index column</div>
+            </td>
+            <ng-container *ngFor="let column of columns">
+                <ng-container *ngIf="column.visible">
+                    <td
+                        class="mc-table-column"
+                        *ngIf="!column.cellTemplate && !rowSpanIndex"
+                        (ngInit)="onCellInit(column, row)"
+                        [attr.rowspan]="rowSpanCount"
+                        (click)="cellClicked(column, row, $event)"
+                    >
+                        <span>{{ getFieldValue(row, column) }}</span>
+                    </td>
+
+                    <!-- TODO: custom templates for cell -->
+                    <ng-container
+                        *ngIf="column.cellTemplate"
+                        [ngTemplateOutlet]="column.cellTemplate"
+                        [ngTemplateOutletContext]="{ column: column, row: row, spanIndex: rowSpanIndex, rowSpan: rowSpanCount }"
+                    >
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </tr>
+    </ng-container>
 </ng-container>
+

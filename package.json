@@ -1,5 +1,6 @@
 {
-    "name": "@ptsecurity/mosaic-data-table",
+    "name": "mosaic-data-table",
+    "private": true,
     "version": "0.0.0",
     "scripts": {
         "clean:dist": "rimraf dist",
@@ -26,6 +27,7 @@
         "@angular/platform-server": "^7.2.10",
         "@angular/router": "^7.2.10",
         "@ptsecurity/cdk": "^1.0.0-beta.4",
+        "@ptsecurity/mosaic": "^1.0.0-beta.4",
         "core-js": "^2.6.4",
         "rxjs": "^6.4.0",
         "tslib": "^1.9.3",

@@ -9,9 +9,44 @@
         border-right: 0.05rem solid #dddddd;
     }
 
+    table {
+        width: auto;
+        min-width: 100%;
+    }
 }
 
 .mc-data-table {
 
+    border: 0.5px solid #ddd;
+    border-collapse: collapse;
+    border-left: 0;
+    margin-bottom: 0;
+    max-width: 100%;
+    table-layout: fixed;
+    width: 100%;
+
+    tbody {
+
+        > tr {
+            cursor: default;
+            height: 32px;
+
+            &:hover {
+                td {
+                    background: #F0F0F0;
+                }
+            }
+
+            &.selected {
+                td {
+                    background: #d8eaf6;
+                }
+            }
+        }
+
+        + tbody {
+            border-top: 0.05rem solid #ddd;
+        }
+    }
 }
 
