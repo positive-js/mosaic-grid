@@ -56,10 +56,10 @@ export class DataTableColumnTitleHeaderComponent {
     setColumnWidth(width: number, column: DataTableColumnComponent): void {
         column.actualWidth = width;
     }
-
-    onColumnResize(event: MouseEvent, column: DataTableColumnComponent, columnElement: HTMLTableHeaderCellElement): void {
-        this.resizeInProgress = true;
-
-        // TODO
-    }
+    //
+    // onColumnResize(event: MouseEvent, column: DataTableColumnComponent, columnElement: HTMLTableHeaderCellElement): void {
+    //     this.resizeInProgress = true;
+    //
+    //     // TODO
+    // }
 }

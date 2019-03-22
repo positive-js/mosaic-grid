@@ -1,9 +1,8 @@
 import {
     AfterContentInit, AfterViewInit,
-    ChangeDetectionStrategy,
-    Component, ContentChild, ContentChildren, ElementRef,
+    Component, ContentChildren, ElementRef,
     EventEmitter,
-    Input, NgZone, OnChanges, OnDestroy,
+    Input, OnChanges, OnDestroy,
     Output, QueryList, SimpleChanges, TemplateRef, ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -14,12 +13,13 @@ import {
     IDataTableCellClickEvent,
     IDataTableRowClickEvent, IDataTableUniqueField
 } from '../../types/data-table.model';
+
 import { DataTableColumnComponent } from '../data-table-column/data-table-column.component';
-import { fromEvent, merge, Observable, of, Subject, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { EventStateService } from '../../services/table-events.service';
 import { DataSourceService } from '../../services/data-source.service';
 import { DataBindCallback, DataStateService } from '../../services/data-state.service';
-import { catchError, debounceTime, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, debounceTime, switchMap } from 'rxjs/operators';
 import { get } from '../../utils';
 
 

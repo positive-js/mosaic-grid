@@ -65,3 +65,6 @@ export class McDataTableModule {
 
 
 export * from './types/data-table.model';
+
+export { DataTableComponent } from './components/data-table/data-table.component';
+export { DataTableColumnComponent } from './components/data-table-column/data-table-column.component';

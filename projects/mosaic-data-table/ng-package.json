@@ -10,7 +10,8 @@
         ],
         "cssUrl": "inline",
         "umdModuleIds": {
-            "rxjs": "Rx"
+            "rxjs": "Rx",
+            "@ptsecurity/cdk/scrolling": "ng.cdk.scrolling"
         }
     }
 }

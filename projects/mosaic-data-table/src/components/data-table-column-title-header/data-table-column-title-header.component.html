@@ -27,7 +27,6 @@
               [hidden]="!column.sortable"
               [ngClass]="column.getSortIconClass()"></span>
         <span class="mc-data-table-column-resize-handle"
-              *ngIf="column.resizable"
-              (mousedown)="onColumnResize($event, column, columnHeader)"> </span>
+              *ngIf="column.resizable"> </span>
     </th>
 </ng-container>

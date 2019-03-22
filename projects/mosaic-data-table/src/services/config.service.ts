@@ -4,25 +4,24 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 export interface IDataTableConfig {
 
     autoFetch?: boolean;
-
-    expandableRows?: boolean;
     showIndexColumn?: boolean;
+    expandableRows?: boolean;
+    selectOnRowClick?: boolean;
     expandOnRowClick?: boolean;
+    multiColumnSortable?: boolean;
+    indexColumnTitle?: boolean;
+    showRowSelectAllCheckbox?: boolean;
+    showRowSelectCheckboxColumn?: boolean;
     expanderColumnWidth?: string | number;
     indexColumnWidth?: string | number;
     selectionColumnWidth?: string | number;
     rowSelectable?: boolean;
-    selectTrackBy?: string;
-    showRowSelectAllCheckbox?: boolean;
-    showRowSelectCheckboxColumn?: boolean;
     selectMode?: string;
-    indexColumnTitle?: boolean;
-    multiColumnSortable?: boolean;
-
-    relativeParentElement?: HTMLElement;
+    selectTrackBy?: any;
+    relativeParentElement?: any;
 }
 
-export const DATA_TABLE_CONFIG = new InjectionToken<IDataTableConfig>('DataTableConfig');
+export const DATA_TABLE_CONFIG = new InjectionToken<IDataTableConfig>('dataTableConfig');
 
 
 @Injectable()
