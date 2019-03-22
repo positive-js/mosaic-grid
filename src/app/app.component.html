@@ -1,7 +1,7 @@
 
 <mc-data-table
     [items]="data"
-    [mcVirtualItemSize]="20"
+    [mcVirtualItemSize]="32"
     [selectOnRowClick]="true"
     [rowSelectable]="true"
     [mcScroll]="{ x:'1300px',y: '240px' }"
@@ -19,4 +19,13 @@
         [title]="'Event Type'">
     </mc-data-table-column>
 
+    <mc-data-table-column
+        [field]="'userCount'"
+        [title]="'User Count'">
+        <ng-template #mcDataTableCell let-row="row">
+            <td>
+                <span style="color: red;">{{ row.item.userCount }}</span>
+            </td>
+        </ng-template>
+    </mc-data-table-column>
 </mc-data-table>

@@ -14,7 +14,7 @@ export class AppComponent {
 
     constructor() {
 
-        this.data =  Array.from({length: 100})
+        this.data =  Array.from({length: 10000})
             .map((_, i) => { return {
                     time: `12:${i}`,
                     eventType: `type ${i}`,
