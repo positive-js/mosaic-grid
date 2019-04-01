@@ -2,7 +2,7 @@ import {
     AfterContentInit, AfterViewInit,
     Component, ContentChildren, ElementRef,
     EventEmitter,
-    Input, OnChanges, OnDestroy,
+    Input, NgZone, OnChanges, OnDestroy,
     Output, QueryList, SimpleChanges, TemplateRef, ViewChild,
     ViewEncapsulation
 } from '@angular/core';
@@ -15,12 +15,13 @@ import {
 } from '../../types/data-table.model';
 
 import { DataTableColumnComponent } from '../data-table-column/data-table-column.component';
-import { Observable, of, Subscription } from 'rxjs';
+import { EMPTY, fromEvent, merge, Observable, of, Subject, Subscription } from 'rxjs';
 import { EventStateService } from '../../services/table-events.service';
 import { DataSourceService } from '../../services/data-source.service';
 import { DataBindCallback, DataStateService } from '../../services/data-state.service';
-import { catchError, debounceTime, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { get } from '../../utils';
+import { CdkVirtualScrollViewport } from '@ptsecurity/cdk/scrolling';
 
 
 @Component({
@@ -40,7 +41,13 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
     columns: QueryList<DataTableColumnComponent>;
 
     @ViewChild('dataTableElement')
-    public dataTableElement: ElementRef<HTMLDivElement>;
+    dataTableElement: ElementRef<HTMLDivElement>;
+
+    @ViewChild(CdkVirtualScrollViewport, { read: ElementRef })
+    cdkVirtualScrollElement: ElementRef;
+
+    @ViewChild('tableHeaderElement', { read: ElementRef })
+    tableHeaderElement: ElementRef;
 
     @Input()
     id: string;
@@ -104,9 +111,19 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
         this.dataStateService.onDataBind = value;
     }
 
+    get cdkVirtualScrollNativeElement(): HTMLElement {
+        return this.cdkVirtualScrollElement && this.cdkVirtualScrollElement.nativeElement;
+    }
+
+    get tableHeaderNativeElement(): HTMLElement {
+        return this.tableHeaderElement && this.tableHeaderElement.nativeElement;
+    }
+
     private dataFetchStreamSubscription: Subscription;
+    private lastScrollLeft = 0;
 
     constructor(
+        private ngZone: NgZone,
         private eventStateService: EventStateService,
         private dataSourceService: DataSourceService<any>,
         public config: DataTableConfigService,
@@ -119,8 +136,20 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
         this.init = this.eventStateService.initStream;
     }
 
+    private destroy$ = new Subject<void>();
+
     ngAfterViewInit(): void {
 
+        this.ngZone.runOutsideAngular(() => {
+            merge<MouseEvent>(
+                this.tableHeaderNativeElement ? fromEvent<MouseEvent>(this.tableHeaderNativeElement, 'scroll') : EMPTY,
+                this.cdkVirtualScrollNativeElement ? fromEvent<MouseEvent>(this.cdkVirtualScrollNativeElement, 'scroll') : EMPTY
+            )
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((data: MouseEvent) => {
+                    this.syncScrollTable(data);
+                });
+        });
     }
 
     ngAfterContentInit(): void {
@@ -148,6 +177,9 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
         }
 
         this.dataSourceService.dispose();
+
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -167,6 +199,23 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
 
             return this.dataSourceService.query();
         };
+    }
+
+    private syncScrollTable(e: MouseEvent): void {
+        if (e.currentTarget === e.target) {
+            const target = e.target as HTMLElement;
+            if (target.scrollLeft !== this.lastScrollLeft && this.mcScroll && this.mcScroll.x) {
+
+                if (target === this.cdkVirtualScrollNativeElement && this.tableHeaderNativeElement) {
+                    this.tableHeaderNativeElement.scrollLeft = target.scrollLeft;
+                } else if (target === this.tableHeaderNativeElement && this.cdkVirtualScrollNativeElement) {
+                    this.cdkVirtualScrollNativeElement.scrollLeft = target.scrollLeft;
+                }
+
+                // this.setScrollPositionClassName();
+            }
+            this.lastScrollLeft = target.scrollLeft;
+        }
     }
 
     private initDataTableState(): void {
