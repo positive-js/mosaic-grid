@@ -70,6 +70,12 @@ export class DataTableColumnComponent {
 
     constructor(private dataTableConfigService: DataTableConfigService) {
 
+        this.sortable = dataTableConfigService.sortable;
+        this._sortOrder = dataTableConfigService.sortOrder;
+    }
+
+    resetSortOrder(): void {
+        this._sortOrder = this._baseSortOrder;
     }
 
     getNewSortOrder(): DataTableSortOrder {

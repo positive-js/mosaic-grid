@@ -3,10 +3,14 @@
     "version": "1.0.0",
     "description": "Angular Data Table",
     "peerDependencies": {
-        "@angular/common": "^7.0.0-rc.0 || ^7.0.0",
-        "@angular/core": "^7.0.0-rc.0 || ^7.0.0",
-        "@angular/forms": "^7.0.0-rc.0 || ^7.0.0",
-        "rxjs": "^6.0.0"
+        "@angular/common": "^^7.0.0",
+        "@angular/core": "^^7.0.0",
+        "@angular/forms": "^^7.0.0",
+        "rxjs": "^6.0.0",
+        "@ptsecurity/cdk": "^1.0.0-beta.4",
+        "@ptsecurity/mosaic": "^1.0.0-beta.4",
+        "@ptsecurity/mosaic-icons": "^2.7.1",
+        "moment": "^2.24.0"
     },
     "repository": {
         "type": "git",

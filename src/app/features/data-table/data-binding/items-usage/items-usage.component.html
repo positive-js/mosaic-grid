@@ -10,17 +10,21 @@
    >
     <mc-data-table-column
         [field]="'time'"
-        [title]="'Time'">
+        [title]="'Time'"
+        [sortable]="true">
     </mc-data-table-column>
 
     <mc-data-table-column
         [field]="'eventType'"
-        [title]="'Event Type'">
+        [title]="'Event Type'"
+        [sortable]="true"
+        [sortOrder]="'asc'">
     </mc-data-table-column>
 
     <mc-data-table-column
         [field]="'userCount'"
-        [title]="'User Count'">
+        [title]="'User Count'"
+        [sortable]="true">
         <ng-template #mcDataTableCell let-row="row">
             <td>
                 <span style="color: red;">{{ row.item.userCount }}</span>

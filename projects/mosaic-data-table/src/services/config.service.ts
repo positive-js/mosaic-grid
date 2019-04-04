@@ -1,4 +1,5 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { DataTableSortOrder } from '..';
 
 
 export interface IDataTableConfig {
@@ -16,6 +17,8 @@ export interface IDataTableConfig {
     indexColumnWidth?: string | number;
     selectionColumnWidth?: string | number;
     rowSelectable?: boolean;
+    sortable?: boolean;
+    sortOrder?: DataTableSortOrder;
     selectMode?: string;
     selectTrackBy?: any;
     relativeParentElement?: any;
@@ -40,6 +43,8 @@ export class DataTableConfigService implements IDataTableConfig {
     indexColumnWidth: string | number = 30;
     selectionColumnWidth: string | number = 30;
     rowSelectable = false;
+    sortable = false;
+    sortOrder: DataTableSortOrder = '';
     selectMode = 'single';
     selectTrackBy = 'id';
     relativeParentElement = undefined;

@@ -11,6 +11,7 @@ import { PixelConverterPipe } from './pipes/pixel-converter.pipe';
 import { DataTableColGroupComponent } from './components/data-table-col-group/data-table-col-group.component';
 import { DataTableHeadComponent } from './components/data-table-head/data-table-head.component';
 import { DataTableColumnTitleHeaderComponent } from './components/data-table-column-title-header/data-table-column-title-header.component';
+import { McIconModule } from '@ptsecurity/mosaic';
 
 
 const COMPONENTS = [
@@ -35,7 +36,9 @@ const PIPES = [
         CommonModule,
         FormsModule,
 
-        ScrollingModule
+        ScrollingModule,
+
+        McIconModule
     ],
     declarations: [
         ...COMPONENTS,

@@ -28,6 +28,8 @@
         "@angular/router": "^7.2.10",
         "@ptsecurity/cdk": "^1.0.0-beta.4",
         "@ptsecurity/mosaic": "^1.0.0-beta.4",
+        "@ptsecurity/mosaic-icons": "^2.7.1",
+        "moment": "^2.24.0",
         "core-js": "^2.6.4",
         "lodash": "^4.17.11",
         "rxjs": "^6.4.0",

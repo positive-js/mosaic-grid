@@ -23,9 +23,14 @@
         <ng-container *ngIf="column.headerTemplate" [ngTemplateOutlet]="column.headerTemplate"
                       [ngTemplateOutletContext]="{ column: column }">
         </ng-container>
+
         <span class="mc-data-table-column-sort-icon"
-              [hidden]="!column.sortable"
-              [ngClass]="column.getSortIconClass()"></span>
+              [hidden]="!column.sortable">
+            <i *ngIf="column.getSortIconClass()['sort-asc'] === true" mc-icon="mc-angle-down-S_16"></i>
+
+            <i *ngIf="column.getSortIconClass()['sort-dsc'] === true" mc-icon="mc-angle-up-S_16"></i>
+        </span>
+
         <span class="mc-data-table-column-resize-handle"
               *ngIf="column.resizable"> </span>
     </th>
