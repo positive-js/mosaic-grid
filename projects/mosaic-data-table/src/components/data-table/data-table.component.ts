@@ -10,7 +10,7 @@ import { DataTableConfigService } from '../../services/config.service';
 import {
     DataFetchMode,
     IDataQueryResult, IDataRequestParams,
-    IDataTableCellClickEvent,
+    IDataTableCellClickEvent, IDataTableHeaderClickEvent,
     IDataTableRowClickEvent, IDataTableUniqueField
 } from '../../types/data-table.model';
 
@@ -80,6 +80,9 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
     @Output()
     cellClick: EventEmitter<IDataTableCellClickEvent<any>>;
 
+    @Output()
+    headerClick: EventEmitter<IDataTableHeaderClickEvent>;
+
     @Input()
     mcVirtualItemSize = 0;
 
@@ -133,6 +136,7 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
         this.rowClick = this.eventStateService.rowClickStream;
         this.rowDoubleClick = this.eventStateService.rowDoubleClickStream;
         this.cellClick = this.eventStateService.cellClickStream;
+        this.headerClick = this.eventStateService.headerClickStream;
         this.init = this.eventStateService.initStream;
     }
 
