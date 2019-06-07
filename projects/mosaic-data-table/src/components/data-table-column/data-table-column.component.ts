@@ -61,10 +61,10 @@ export class DataTableColumnComponent {
     @Input()
     resizeMinLimit: number;
 
-    @ContentChild('mcDataTableCell')
+    @ContentChild('mcDataTableCell', {static: false})
     cellTemplate: TemplateRef<any>;
 
-    @ContentChild('mcDataTableHeader')
+    @ContentChild('mcDataTableHeader', {static: false})
     headerTemplate: TemplateRef<any>;
 
 

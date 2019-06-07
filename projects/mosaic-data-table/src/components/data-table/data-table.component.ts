@@ -40,13 +40,13 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
     @ContentChildren(DataTableColumnComponent)
     columns: QueryList<DataTableColumnComponent>;
 
-    @ViewChild('dataTableElement')
+    @ViewChild('dataTableElement', {static: false})
     dataTableElement: ElementRef<HTMLDivElement>;
 
-    @ViewChild(CdkVirtualScrollViewport, { read: ElementRef })
+    @ViewChild(CdkVirtualScrollViewport, { read: ElementRef, static: false })
     cdkVirtualScrollElement: ElementRef;
 
-    @ViewChild('tableHeaderElement', { read: ElementRef })
+    @ViewChild('tableHeaderElement', { read: ElementRef, static: false })
     tableHeaderElement: ElementRef;
 
     @Input()
