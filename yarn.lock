@@ -327,9 +327,9 @@
     webpack-sources "1.3.0"
 
 "@ptsecurity/cdk@^8.0.0-beta.1":
-  version "8.0.0-beta.1"
-  resolved "https://repo.ptsecurity.ru/artifactory/api/npm/npmjs/@ptsecurity/cdk/-/cdk-8.0.0-beta.1.tgz#2ad372d252109607988a16c7b7fe2b88850a96b3"
-  integrity sha1-KtNy0lIQlgeYihbHt/4riIUKlrM=
+  version "8.0.0-beta.2"
+  resolved "https://repo.ptsecurity.ru/artifactory/api/npm/npmjs/@ptsecurity/cdk/-/cdk-8.0.0-beta.2.tgz#285201c6edab804b2f71ce536ae89fc2dac1b48f"
+  integrity sha1-KFIBxu2rgEsvcc5TauifwtrBtI8=
   dependencies:
     tslib "^1.7.1"
 
@@ -339,9 +339,9 @@
   integrity sha1-WBoCEyS8r4Cap44xwznfxiUUvg4=
 
 "@ptsecurity/mosaic@^8.0.0-beta.1":
-  version "8.0.0-beta.1"
-  resolved "https://repo.ptsecurity.ru/artifactory/api/npm/npmjs/@ptsecurity/mosaic/-/mosaic-8.0.0-beta.1.tgz#1fe985ff82a5ae1fd99fc609f8350e872266ef27"
-  integrity sha1-H+mF/4Klrh/Zn8YJ+DUOhyJm7yc=
+  version "8.0.0-beta.2"
+  resolved "https://repo.ptsecurity.ru/artifactory/api/npm/npmjs/@ptsecurity/mosaic/-/mosaic-8.0.0-beta.2.tgz#5ffa65bd6f84bfc7bc7f2e4703d68a0e6c077ac8"
+  integrity sha1-X/plvW+Ev8e8fy5HA9aKDmwHesg=
   dependencies:
     tslib "^1.7.1"
 
@@ -7202,7 +7202,12 @@ tsickle@^0.34.3:
     mkdirp "^0.5.1"
     source-map "^0.7.3"
 
-tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.7.1:
+  version "1.10.0"
+  resolved "https://repo.ptsecurity.ru/artifactory/api/npm/npmjs/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
+  integrity sha1-w8GflZc/sKYpc/sJ2Q2WHuQ+XIo=
+
+tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.9.3"
   resolved "https://repo.ptsecurity.ru/artifactory/api/npm/npmjs/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha1-1+TdeSRdhUKMTX5IIqeZF5VMooY=
@@ -7510,9 +7515,9 @@ wbuf@^1.1.0, wbuf@^1.7.3:
     minimalistic-assert "^1.0.0"
 
 webpack-cli@^3.2.3:
-  version "3.3.3"
-  resolved "https://repo.ptsecurity.ru/artifactory/api/npm/npmjs/webpack-cli/-/webpack-cli-3.3.3.tgz#8b7587dee369a838eb4722f6cfa711c779011e5f"
-  integrity sha1-i3WH3uNpqDjrRyL2z6cRx3kBHl8=
+  version "3.3.4"
+  resolved "https://repo.ptsecurity.ru/artifactory/api/npm/npmjs/webpack-cli/-/webpack-cli-3.3.4.tgz#de27e281c48a897b8c219cb093e261d5f6afe44a"
+  integrity sha1-3ifigcSKiXuMIZywk+Jh1fav5Eo=
   dependencies:
     chalk "^2.4.1"
     cross-spawn "^6.0.5"

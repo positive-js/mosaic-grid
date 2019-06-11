@@ -3,13 +3,13 @@
     "version": "1.0.0",
     "description": "Angular Data Table",
     "peerDependencies": {
-        "@angular/common": "^^7.0.0",
-        "@angular/core": "^^7.0.0",
-        "@angular/forms": "^^7.0.0",
-        "rxjs": "^6.0.0",
-        "@ptsecurity/cdk": "^1.0.0-beta.4",
-        "@ptsecurity/mosaic": "^1.0.0-beta.4",
-        "@ptsecurity/mosaic-icons": "^2.7.1",
+        "@angular/common": "^8.0.0",
+        "@angular/core": "^8.0.0",
+        "@angular/forms": "^8.0.0",
+        "rxjs": "^6.5.2",
+        "@ptsecurity/cdk": "^8.0.0-beta.2",
+        "@ptsecurity/mosaic": "^8.0.0-beta.2",
+        "@ptsecurity/mosaic-icons": "^2.10.0",
         "moment": "^2.24.0"
     },
     "repository": {
