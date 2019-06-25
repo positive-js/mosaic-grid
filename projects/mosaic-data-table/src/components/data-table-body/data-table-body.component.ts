@@ -55,7 +55,7 @@ export class DataTableBodyComponent {
 
     rowClicked(row: IDataTableRow<any>, event: MouseEvent): void {
         if (this.config.selectOnRowClick || (this.config.expandableRows && this.config.expandOnRowClick)) {
-            const element: any = event.target || event.srcElement;
+            const element: any = event.target;
             if (element.classList.contains('ng-ignore-propagation')) {
                 return;
             }
