@@ -326,10 +326,10 @@
     tree-kill "1.2.1"
     webpack-sources "1.3.0"
 
-"@ptsecurity/cdk@^8.0.0-beta.2":
-  version "8.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@ptsecurity/cdk/-/cdk-8.0.0-beta.2.tgz#285201c6edab804b2f71ce536ae89fc2dac1b48f"
-  integrity sha512-i7STZ7FEkEWV9xBTpcT8Mai0V32gZvxT/NiPsljKOLmLyfcRUdeuwqariPtUYG6qcSXUv9LZOPQt4V5ar20xmw==
+"@ptsecurity/cdk@^8.0.0-beta.3":
+  version "8.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@ptsecurity/cdk/-/cdk-8.0.0-beta.3.tgz#bb4661a6d7616a59fda5d5cbe9ee60a7b5d04b87"
+  integrity sha512-v3MPByuzsM3p+D6qeDe7cJhanvwPJye6KlSV/c9wv4hJ41r4EBJMWfGQIwM8eEBETasQpgSk8TeQwFQT3ByElA==
   dependencies:
     tslib "^1.7.1"
 
@@ -338,10 +338,10 @@
   resolved "https://registry.yarnpkg.com/@ptsecurity/mosaic-icons/-/mosaic-icons-2.10.0.tgz#581a021324bcaf809aa78e31c339dfc62514be0e"
   integrity sha512-LBVBtN2TMXVkfvAg8pBhnhZ+mmI6vbtWnAccse7v/nURJ0RCYOkK4wkQ9RkY4j83AMG+CL2xLbd1Bq/HNFpQOA==
 
-"@ptsecurity/mosaic@^8.0.0-beta.2":
-  version "8.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@ptsecurity/mosaic/-/mosaic-8.0.0-beta.2.tgz#5ffa65bd6f84bfc7bc7f2e4703d68a0e6c077ac8"
-  integrity sha512-lk0leSz2ZOk3ypL2hknNN7wEu8TOtMRBnXTNUZy8aKQbTeKz6ob+aN/57DfHKQM4LfM0YV966asZEyMuhWCHyQ==
+"@ptsecurity/mosaic@^8.0.0-beta.3":
+  version "8.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@ptsecurity/mosaic/-/mosaic-8.0.0-beta.3.tgz#3ec7534ad4f431510a278be0920be00f945ce900"
+  integrity sha512-n1o2vT10I2vIG8a80cgecvKha0+ob4fpLn25sPE44cAvYnT2vWwc+RX/siZ3pMjHFryvE0nOdRBfXde1vzgKUQ==
   dependencies:
     tslib "^1.7.1"
 
