@@ -24,6 +24,7 @@
         "@ptsecurity/cdk": "^8.0.0-beta.3",
         "@ptsecurity/mosaic": "^8.0.0-beta.3",
         "@ptsecurity/mosaic-icons": "~2.10.0",
+        "angular-resizable-element": "^3.2.4",
         "core-js": "^2.6.4",
         "lodash": "^4.17.11",
         "moment": "^2.24.0",

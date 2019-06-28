@@ -11,6 +11,10 @@
     padding-bottom: 20px;
 }
 
+.mc-data-table-content {
+    border-top: 1px solid #ccc;
+}
+
 .mc-data-table-column-sort-icon {
     bottom: 0.5em;
     content: '';
@@ -51,7 +55,7 @@
             text-align: left;
 
             > th {
-                border-bottom: 1px solid #ccc;
+                // border-bottom: 1px solid #ccc;
                 border-top: 0;
                 padding-left: 8px;
                 position: relative;

@@ -6,6 +6,7 @@ import { EventStateService } from '../../services/table-events.service';
 import { DataFetchMode } from '../..';
 import { DragAndDropService } from '../../services/drag-and-drop.service';
 import { DataStateService } from '../../services/data-state.service';
+import { ResizeEvent } from 'angular-resizable-element';
 
 
 @Component({
@@ -59,6 +60,23 @@ export class DataTableColumnTitleHeaderComponent {
 
     setColumnWidth(width: number, column: DataTableColumnComponent): void {
         column.actualWidth = width;
+    }
+
+    onResizeEnd(event: ResizeEvent, column) {
+
+        if (event.edges.right) {
+            const newWidth = event.rectangle.width;
+
+            column.actualWidth = newWidth;
+            let totalWidth = 0;
+
+            this.columns.forEach(col => {
+                col.width = col.actualWidth;
+                totalWidth += col.width;
+            });
+
+            this.dataStateService.tableWidth = totalWidth;
+        }
     }
 
     onColumnResize(event: MouseEvent, column: DataTableColumnComponent, columnElement: HTMLTableHeaderCellElement): void {

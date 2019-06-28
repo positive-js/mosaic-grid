@@ -9,6 +9,9 @@
     <th
         class="mc-data-table-column-header"
         #columnHeader
+        mwlResizable
+        [enableGhostResize]="true" (resizeEnd)="onResizeEnd($event, column)"
+        [resizeEdges]="{bottom: false, right: true, top: false, left: true}"
         *ngIf="column.visible"
         (click)="onHeaderClick(column, $event)"
         (mcElementWidth)="setColumnWidth($event, column)"
@@ -31,8 +34,8 @@
             <i *ngIf="column.getSortIconClass()['sort-dsc'] === true" mc-icon="mc-angle-up-S_16"></i>
         </span>
 
+        <!--(mousedown)="onColumnResize($event, column, columnHeader)"-->
         <span class="mc-data-table-column-resize-handle"
-              (mousedown)="onColumnResize($event, column, columnHeader)"
               *ngIf="column.resizable"> </span>
     </th>
 </ng-container>

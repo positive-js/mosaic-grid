@@ -15,6 +15,7 @@ import { McIconModule } from '@ptsecurity/mosaic';
 import { DragAndDropService } from './services/drag-and-drop.service';
 import { GlobalRefService } from './services/global-ref.service';
 import { ElementWidthDirective } from './directives/element-width.directive';
+import { ResizableModule } from 'angular-resizable-element';
 
 
 const COMPONENTS = [
@@ -42,7 +43,8 @@ const PIPES = [
 
         ScrollingModule,
 
-        McIconModule
+        McIconModule,
+        ResizableModule
     ],
     declarations: [
         ...COMPONENTS,

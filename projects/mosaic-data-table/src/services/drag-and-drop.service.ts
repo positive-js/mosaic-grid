@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { take } from 'rxjs/operators';
 
 
 export type MoveHandler = (event: MouseEvent, dx: number, dy: number, x: number, y: number) => void;
@@ -6,6 +7,8 @@ export type UpHandler = (event: MouseEvent, x: number, y: number, moved: boolean
 
 @Injectable()
 export class DragAndDropService {
+
+    constructor(private zone: NgZone) {}
 
     drag(event: MouseEvent, {move, up}: { move: MoveHandler; up?: UpHandler }): void {
         const startX = event.pageX;
@@ -25,10 +28,18 @@ export class DragAndDropService {
 
             move(mouseMoveEvent, dx, dy, x, y);
 
-            mouseMoveEvent.preventDefault();
+            if (event.preventDefault){
+                mouseMoveEvent.preventDefault();
+            }
+            else {
+                mouseMoveEvent.returnValue = false;
+            }
+            mouseMoveEvent.stopPropagation();
         };
 
         const mouseUpHandler = (mouseUpEvent: MouseEvent): void => {
+
+            mouseUpEvent.stopPropagation();
             x = mouseUpEvent.pageX;
             y = mouseUpEvent.pageY;
 
