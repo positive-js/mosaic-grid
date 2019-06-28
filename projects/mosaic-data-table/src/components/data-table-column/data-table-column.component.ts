@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
 
 import { DataTableConfigService } from '../../services/config.service';
 import { DataTableSortOrder } from '../..';
@@ -8,12 +8,15 @@ import { DataTableSortOrder } from '../..';
     selector: 'mc-data-table-column',
     template: ''
 })
-export class DataTableColumnComponent {
+export class DataTableColumnComponent implements OnInit {
 
     // Callback event handlers
 
     @Input()
     title: string;
+
+    @Input()
+    cssClass: string;
 
     @Input()
     sortable = false;
@@ -71,7 +74,18 @@ export class DataTableColumnComponent {
     constructor(private dataTableConfigService: DataTableConfigService) {
 
         this.sortable = dataTableConfigService.sortable;
+        this.resizable = dataTableConfigService.columnResizable;
         this._sortOrder = dataTableConfigService.sortOrder;
+    }
+
+    ngOnInit(): void {
+        if (!this.cssClass && this.field) {
+            if (/^[a-zA-Z0-9_]+$/.test(this.field)) {
+                this.cssClass = 'column-' + this.field;
+            } else {
+                this.cssClass = 'column-' + this.field.replace(/[^a-zA-Z0-9_]/g, '');
+            }
+        }
     }
 
     resetSortOrder(): void {

@@ -12,6 +12,9 @@ import { DataTableColGroupComponent } from './components/data-table-col-group/da
 import { DataTableHeadComponent } from './components/data-table-head/data-table-head.component';
 import { DataTableColumnTitleHeaderComponent } from './components/data-table-column-title-header/data-table-column-title-header.component';
 import { McIconModule } from '@ptsecurity/mosaic';
+import { DragAndDropService } from './services/drag-and-drop.service';
+import { GlobalRefService } from './services/global-ref.service';
+import { ElementWidthDirective } from './directives/element-width.directive';
 
 
 const COMPONENTS = [
@@ -24,7 +27,8 @@ const COMPONENTS = [
 ];
 
 const DIRECTIVES = [
-    InitDirective
+    InitDirective,
+    ElementWidthDirective
 ];
 
 const PIPES = [
@@ -44,6 +48,10 @@ const PIPES = [
         ...COMPONENTS,
         ...DIRECTIVES,
         ...PIPES
+    ],
+    providers: [
+        DragAndDropService,
+        GlobalRefService
     ],
     exports: [
         DataTableComponent,

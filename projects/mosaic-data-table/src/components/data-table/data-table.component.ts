@@ -22,6 +22,7 @@ import { DataBindCallback, DataStateService } from '../../services/data-state.se
 import { catchError, debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { get } from '../../utils';
 import { CdkVirtualScrollViewport } from '@ptsecurity/cdk/scrolling';
+import { GlobalRefService } from '../../services/global-ref.service';
 
 
 @Component({
@@ -77,6 +78,15 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
         this.config.rowSelectable = value;
     }
 
+    /**
+     * Set static width
+     * @param value in pixels
+     */
+    @Input()
+    set width(value: string | number) {
+        this.config.width = value;
+    }
+
     @Output()
     cellClick: EventEmitter<IDataTableCellClickEvent<any>>;
 
@@ -122,12 +132,17 @@ export class DataTableComponent implements OnDestroy, AfterContentInit, AfterVie
         return this.tableHeaderElement && this.tableHeaderElement.nativeElement;
     }
 
+    get tableWidth(): number {
+        return this.config.width || this.dataStateService.tableWidth;
+    }
+
     private dataFetchStreamSubscription: Subscription;
     private lastScrollLeft = 0;
 
     constructor(
         private ngZone: NgZone,
         private eventStateService: EventStateService,
+        private globalRefService: GlobalRefService,
         private dataSourceService: DataSourceService<any>,
         public config: DataTableConfigService,
         public dataStateService: DataStateService

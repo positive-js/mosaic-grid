@@ -1,6 +1,9 @@
 <div class="mc-data-table-container">
     <div class="mc-data-table-content-header" #tableHeaderElement>
-        <table class="mc-data-table" [style.min-width]="mcScroll.x">
+        <table class="mc-data-table"
+               [style.min-width]="mcScroll.x"
+               [style.width]="tableWidth | mcPx"
+        >
             <colgroup mcDataTableColGroup [columns]="columns"></colgroup>
             <thead mcDataTableHead [columns]="columns"></thead>
         </table>
@@ -11,7 +14,11 @@
             [maxBufferPx]="mcVirtualMaxBufferPx"
             [minBufferPx]="mcVirtualMinBufferPx"
             [style.height]="mcScroll.y">
-                <table class="mc-data-table" [style.min-width]="mcScroll.x">
+                <table class="mc-data-table"
+                       [style.min-width]="mcScroll.x"
+                       [style.width]="tableWidth | mcPx"
+                >
+                    <colgroup mcDataTableColGroup [columns]="columns"></colgroup>
                     <tbody
                         mcDataTableBody
                         [columns]="columns"

@@ -14,6 +14,7 @@ export interface IDataTableConfig {
     showRowSelectAllCheckbox?: boolean;
     showRowSelectCheckboxColumn?: boolean;
     expanderColumnWidth?: string | number;
+    columnResizable?: boolean;
     indexColumnWidth?: string | number;
     selectionColumnWidth?: string | number;
     rowSelectable?: boolean;
@@ -22,6 +23,12 @@ export interface IDataTableConfig {
     selectMode?: string;
     selectTrackBy?: any;
     relativeParentElement?: any;
+    /**
+     * Width value in pixels;
+     * Set the width of teh table
+     * For responsive - not set
+     */
+    width?: string | number;
 }
 
 export const DATA_TABLE_CONFIG = new InjectionToken<IDataTableConfig>('dataTableConfig');
@@ -31,6 +38,7 @@ export const DATA_TABLE_CONFIG = new InjectionToken<IDataTableConfig>('dataTable
 export class DataTableConfigService implements IDataTableConfig {
 
     autoFetch = true;
+    columnResizable = false;
     showIndexColumn = false;
     expandableRows = false;
     selectOnRowClick = false;
@@ -47,6 +55,7 @@ export class DataTableConfigService implements IDataTableConfig {
     sortOrder: DataTableSortOrder = '';
     selectMode = 'single';
     selectTrackBy = 'id';
+    width = undefined;
     relativeParentElement = undefined;
 
     constructor(@Inject(DATA_TABLE_CONFIG) private dataTableConfig: IDataTableConfig) {

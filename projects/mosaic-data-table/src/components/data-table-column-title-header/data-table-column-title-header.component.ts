@@ -4,6 +4,8 @@ import { DataTableColumnComponent } from '../data-table-column/data-table-column
 import { DataTableConfigService } from '../../services/config.service';
 import { EventStateService } from '../../services/table-events.service';
 import { DataFetchMode } from '../..';
+import { DragAndDropService } from '../../services/drag-and-drop.service';
+import { DataStateService } from '../../services/data-state.service';
 
 
 @Component({
@@ -19,6 +21,8 @@ export class DataTableColumnTitleHeaderComponent {
 
     constructor(
         private eventStateService: EventStateService,
+        private dragAndDropService: DragAndDropService,
+        private dataStateService: DataStateService,
         public config: DataTableConfigService
     ) {
     }
@@ -56,10 +60,27 @@ export class DataTableColumnTitleHeaderComponent {
     setColumnWidth(width: number, column: DataTableColumnComponent): void {
         column.actualWidth = width;
     }
-    //
-    // onColumnResize(event: MouseEvent, column: DataTableColumnComponent, columnElement: HTMLTableHeaderCellElement): void {
-    //     this.resizeInProgress = true;
-    //
-    //     // TODO
-    // }
+
+    onColumnResize(event: MouseEvent, column: DataTableColumnComponent, columnElement: HTMLTableHeaderCellElement): void {
+        this.resizeInProgress = true;
+
+        this.dragAndDropService.drag(event, {
+            move: (moveEvent: MouseEvent, dx: number) => {
+                const newWidth = columnElement.offsetWidth + dx;
+                if (column.resizeMinLimit !== undefined && newWidth < column.resizeMinLimit) {
+                    return;
+                }
+
+                column.actualWidth = newWidth;
+                let totalWidth = 0;
+
+                this.columns.forEach(col => {
+                    col.width = col.actualWidth;
+                    totalWidth += col.width;
+                });
+
+                this.dataStateService.tableWidth = totalWidth;
+            }
+        });
+    }
 }

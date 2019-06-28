@@ -11,7 +11,7 @@
         #columnHeader
         *ngIf="column.visible"
         (click)="onHeaderClick(column, $event)"
-        (ngElementWidth)="setColumnWidth($event, column)"
+        (mcElementWidth)="setColumnWidth($event, column)"
         [class.sortable]="column.sortable"
         [class.resizable]="column.resizable"
     >
@@ -32,6 +32,7 @@
         </span>
 
         <span class="mc-data-table-column-resize-handle"
+              (mousedown)="onColumnResize($event, column, columnHeader)"
               *ngIf="column.resizable"> </span>
     </th>
 </ng-container>
